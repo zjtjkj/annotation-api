@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package api.preference;
+
+option go_package = "user/api/preference/v1;v1";
+
+// Preference 偏好设置
+service Preference {
+	rpc UpdatePreference (UpdatePreferenceRequest) returns (UpdatePreferenceReply);
+	rpc GetPreference (GetPreferenceRequest) returns (GetPreferenceReply);
+}
+
+message UpdatePreferenceRequest {
+	uint32 id = 1;
+	message Preference {
+		bool tip = 1;
+		bool hotkeys = 2;
+		bool guides = 3;
+		bool hide_name = 4;
+		bool hide_color = 5;
+	}
+	Preference preference = 2;
+}
+message UpdatePreferenceReply {}
+
+message GetPreferenceRequest {
+	uint32 id = 1;
+}
+message GetPreferenceReply {
+	message Preference {
+		bool tip = 1;
+		bool hotkeys = 2;
+		bool guides = 3;
+		bool hide_name = 4;
+		bool hide_color = 5;
+	}
+	Preference preference = 1;
+}

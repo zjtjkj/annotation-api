@@ -1,0 +1,120 @@
+syntax = "proto3";
+
+package api.user;
+
+option go_package = "user/api/user/v1;v1";
+
+service User {
+	rpc CreateUser (CreateUserRequest) returns (CreateUserReply);
+	rpc UpdateUser (UpdateUserRequest) returns (UpdateUserReply);
+	rpc UpdatePwd(UpdatePwdRequest) returns (UpdatePwdReply);
+	rpc UpdateStatus(UpdateStatusRequest) returns (UpdateStatusReply);
+	rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply);
+	rpc GetUser (GetUserRequest) returns (GetUserReply);
+	rpc ListUser (ListUserRequest) returns (ListUserReply);
+	rpc GetUserByUsername(GetUserByUsernameRequest) returns (GetUserByUsernameReply);
+	rpc GetStatus(GetStatusRequest) returns (GetStatusReply);
+}
+
+enum Status {
+	Annotator = 0;
+	Auditor = 1;
+	Administrator = 2;
+}
+
+message CreateUserRequest {
+	message User {
+		string username = 1;
+		string password = 2;
+		string name = 3;
+		string contact = 4;
+		Status status = 5;
+	}
+	User user = 1;
+}
+message CreateUserReply {}
+
+message UpdateUserRequest {
+	message User {
+		string username = 1;
+		string name = 2;
+		string contact = 3;
+	}
+	uint32 id = 1;
+	User user = 2;
+}
+message UpdateUserReply {}
+
+message UpdatePwdRequest {
+	uint32 id = 1;
+	string password = 2;
+}
+message UpdatePwdReply {}
+
+message UpdateStatusRequest {
+	uint32 id = 1;
+	Status status = 2;
+}
+message UpdateStatusReply {}
+
+message DeleteUserRequest {
+	uint32 id = 1;
+}
+message DeleteUserReply {}
+
+message GetUserRequest {
+	uint32 id = 1;
+}
+message GetUserReply {
+	message User {
+		uint32 id = 1;
+		string username = 2;
+		string password = 3;
+		string name = 4;
+		string contact = 5;
+		Status status = 6;
+	}
+	User user = 1;
+}
+
+message ListUserRequest {
+	string username = 1;
+	string name = 2;
+	string contact = 3;
+	repeated Status status = 4;
+}
+message ListUserReply {
+	message User {
+		uint32 id = 1;
+		string username = 2;
+		string password = 3;
+		string name = 4;
+		string contact = 5;
+		Status status = 6;
+	}
+	repeated User users = 1;
+}
+
+message GetUserByUsernameRequest {
+	string username = 1;
+}
+message GetUserByUsernameReply {
+	message User {
+		uint32 id = 1;
+		string username = 2;
+		string password = 3;
+		string name = 4;
+		string contact = 5;
+		Status status = 6;
+	}
+	User user = 1;
+}
+
+message GetStatusRequest {}
+message GetStatusReply {
+	message Status {
+		uint32 id = 1;
+		string name = 2;
+	}
+	repeated Status status = 1;
+}

@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package api.group;
+
+option go_package = "user/api/group/v1;v1";
+
+service Group {
+	rpc CreateGroup (CreateGroupRequest) returns (CreateGroupReply);
+	rpc UpdateGroup (UpdateGroupRequest) returns (UpdateGroupReply);
+	rpc DeleteGroup (DeleteGroupRequest) returns (DeleteGroupReply);
+	rpc GetGroup (GetGroupRequest) returns (GetGroupReply);
+	rpc ListGroup (ListGroupRequest) returns (ListGroupReply);
+}
+
+message CreateGroupRequest {
+	string name = 1;
+}
+message CreateGroupReply {}
+
+message UpdateGroupRequest {
+	message Group {
+		uint32 id = 1;
+		string name = 2;
+	}
+	Group group = 1;
+}
+message UpdateGroupReply {}
+
+message DeleteGroupRequest {
+	uint32 id = 1;
+}
+message DeleteGroupReply {}
+
+message GetGroupRequest {
+	uint32 id = 1;
+}
+message GetGroupReply {
+	message Group {
+		uint32 id = 1;
+		string name = 2;
+	}
+	Group group = 1;
+}
+
+message ListGroupRequest {}
+message ListGroupReply {
+	message Group {
+		uint32 id = 1;
+		string name = 2;
+	}
+	repeated Group groups = 1;
+}
