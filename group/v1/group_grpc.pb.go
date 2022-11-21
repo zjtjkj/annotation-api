@@ -27,6 +27,7 @@ type GroupClient interface {
 	DeleteGroup(ctx context.Context, in *DeleteGroupRequest, opts ...grpc.CallOption) (*DeleteGroupReply, error)
 	GetGroup(ctx context.Context, in *GetGroupRequest, opts ...grpc.CallOption) (*GetGroupReply, error)
 	ListGroup(ctx context.Context, in *ListGroupRequest, opts ...grpc.CallOption) (*ListGroupReply, error)
+	GetUsers(ctx context.Context, in *GetUsersRequest, opts ...grpc.CallOption) (*GetUsersReply, error)
 }
 
 type groupClient struct {
@@ -82,6 +83,15 @@ func (c *groupClient) ListGroup(ctx context.Context, in *ListGroupRequest, opts 
 	return out, nil
 }
 
+func (c *groupClient) GetUsers(ctx context.Context, in *GetUsersRequest, opts ...grpc.CallOption) (*GetUsersReply, error) {
+	out := new(GetUsersReply)
+	err := c.cc.Invoke(ctx, "/api.group.Group/GetUsers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GroupServer is the server API for Group service.
 // All implementations must embed UnimplementedGroupServer
 // for forward compatibility
@@ -91,6 +101,7 @@ type GroupServer interface {
 	DeleteGroup(context.Context, *DeleteGroupRequest) (*DeleteGroupReply, error)
 	GetGroup(context.Context, *GetGroupRequest) (*GetGroupReply, error)
 	ListGroup(context.Context, *ListGroupRequest) (*ListGroupReply, error)
+	GetUsers(context.Context, *GetUsersRequest) (*GetUsersReply, error)
 	mustEmbedUnimplementedGroupServer()
 }
 
@@ -112,6 +123,9 @@ func (UnimplementedGroupServer) GetGroup(context.Context, *GetGroupRequest) (*Ge
 }
 func (UnimplementedGroupServer) ListGroup(context.Context, *ListGroupRequest) (*ListGroupReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListGroup not implemented")
+}
+func (UnimplementedGroupServer) GetUsers(context.Context, *GetUsersRequest) (*GetUsersReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUsers not implemented")
 }
 func (UnimplementedGroupServer) mustEmbedUnimplementedGroupServer() {}
 
@@ -216,6 +230,24 @@ func _Group_ListGroup_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Group_GetUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUsersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GroupServer).GetUsers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.group.Group/GetUsers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GroupServer).GetUsers(ctx, req.(*GetUsersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Group_ServiceDesc is the grpc.ServiceDesc for Group service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -242,6 +274,10 @@ var Group_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListGroup",
 			Handler:    _Group_ListGroup_Handler,
+		},
+		{
+			MethodName: "GetUsers",
+			Handler:    _Group_GetUsers_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

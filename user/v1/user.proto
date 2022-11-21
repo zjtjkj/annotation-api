@@ -14,6 +14,8 @@ service User {
 	rpc ListUser (ListUserRequest) returns (ListUserReply);
 	rpc GetUserByUsername(GetUserByUsernameRequest) returns (GetUserByUsernameReply);
 	rpc GetStatus(GetStatusRequest) returns (GetStatusReply);
+	rpc DistributeGroup(DistributeGroupRequest) returns (DistributeGroupReply);
+	rpc GetGroups(GetGroupsRequest) returns (GetGroupsReply);
 }
 
 enum Status {
@@ -117,4 +119,21 @@ message GetStatusReply {
 		string name = 2;
 	}
 	repeated Status status = 1;
+}
+
+message DistributeGroupRequest {
+	uint32 id = 1;
+	repeated uint32 groups = 2;
+}
+message DistributeGroupReply {}
+
+message GetGroupsRequest{
+	uint32 id = 1;
+}
+message GetGroupsReply {
+	message Group {
+		uint32 id = 1;
+		string name = 2;
+	}
+	repeated Group groups = 1;
 }

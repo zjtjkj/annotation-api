@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package api.user;
+
+option go_package = "user/api/user/v1;v1";
+
+enum ErrorReason {
+  User_Already_Existed = 0;
+  User_Not_Found = 1;
+}

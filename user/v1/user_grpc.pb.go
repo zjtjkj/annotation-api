@@ -31,6 +31,8 @@ type UserClient interface {
 	ListUser(ctx context.Context, in *ListUserRequest, opts ...grpc.CallOption) (*ListUserReply, error)
 	GetUserByUsername(ctx context.Context, in *GetUserByUsernameRequest, opts ...grpc.CallOption) (*GetUserByUsernameReply, error)
 	GetStatus(ctx context.Context, in *GetStatusRequest, opts ...grpc.CallOption) (*GetStatusReply, error)
+	DistributeGroup(ctx context.Context, in *DistributeGroupRequest, opts ...grpc.CallOption) (*DistributeGroupReply, error)
+	GetGroups(ctx context.Context, in *GetGroupsRequest, opts ...grpc.CallOption) (*GetGroupsReply, error)
 }
 
 type userClient struct {
@@ -122,6 +124,24 @@ func (c *userClient) GetStatus(ctx context.Context, in *GetStatusRequest, opts .
 	return out, nil
 }
 
+func (c *userClient) DistributeGroup(ctx context.Context, in *DistributeGroupRequest, opts ...grpc.CallOption) (*DistributeGroupReply, error) {
+	out := new(DistributeGroupReply)
+	err := c.cc.Invoke(ctx, "/api.user.User/DistributeGroup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userClient) GetGroups(ctx context.Context, in *GetGroupsRequest, opts ...grpc.CallOption) (*GetGroupsReply, error) {
+	out := new(GetGroupsReply)
+	err := c.cc.Invoke(ctx, "/api.user.User/GetGroups", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility
@@ -135,6 +155,8 @@ type UserServer interface {
 	ListUser(context.Context, *ListUserRequest) (*ListUserReply, error)
 	GetUserByUsername(context.Context, *GetUserByUsernameRequest) (*GetUserByUsernameReply, error)
 	GetStatus(context.Context, *GetStatusRequest) (*GetStatusReply, error)
+	DistributeGroup(context.Context, *DistributeGroupRequest) (*DistributeGroupReply, error)
+	GetGroups(context.Context, *GetGroupsRequest) (*GetGroupsReply, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -168,6 +190,12 @@ func (UnimplementedUserServer) GetUserByUsername(context.Context, *GetUserByUser
 }
 func (UnimplementedUserServer) GetStatus(context.Context, *GetStatusRequest) (*GetStatusReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStatus not implemented")
+}
+func (UnimplementedUserServer) DistributeGroup(context.Context, *DistributeGroupRequest) (*DistributeGroupReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DistributeGroup not implemented")
+}
+func (UnimplementedUserServer) GetGroups(context.Context, *GetGroupsRequest) (*GetGroupsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGroups not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
@@ -344,6 +372,42 @@ func _User_GetStatus_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_DistributeGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DistributeGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).DistributeGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.user.User/DistributeGroup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).DistributeGroup(ctx, req.(*DistributeGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _User_GetGroups_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetGroupsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).GetGroups(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.user.User/GetGroups",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).GetGroups(ctx, req.(*GetGroupsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -386,6 +450,14 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetStatus",
 			Handler:    _User_GetStatus_Handler,
+		},
+		{
+			MethodName: "DistributeGroup",
+			Handler:    _User_DistributeGroup_Handler,
+		},
+		{
+			MethodName: "GetGroups",
+			Handler:    _User_GetGroups_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

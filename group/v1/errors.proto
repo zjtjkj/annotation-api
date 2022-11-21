@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package api.group;
+
+option go_package = "group/api/group/v1;v1";
+
+enum ErrorReason {
+  Group_Already_Existed = 0;
+  Group_Not_Found = 1;
+}
