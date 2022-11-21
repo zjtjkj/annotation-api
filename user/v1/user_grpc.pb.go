@@ -28,6 +28,7 @@ type UserClient interface {
 	UpdateStatus(ctx context.Context, in *UpdateStatusRequest, opts ...grpc.CallOption) (*UpdateStatusReply, error)
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserReply, error)
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserReply, error)
+	GetDeletedUser(ctx context.Context, in *GetDeletedUserRequest, opts ...grpc.CallOption) (*GetDeletedUserReply, error)
 	ListUser(ctx context.Context, in *ListUserRequest, opts ...grpc.CallOption) (*ListUserReply, error)
 	GetUserByUsername(ctx context.Context, in *GetUserByUsernameRequest, opts ...grpc.CallOption) (*GetUserByUsernameReply, error)
 	GetStatus(ctx context.Context, in *GetStatusRequest, opts ...grpc.CallOption) (*GetStatusReply, error)
@@ -97,6 +98,15 @@ func (c *userClient) GetUser(ctx context.Context, in *GetUserRequest, opts ...gr
 	return out, nil
 }
 
+func (c *userClient) GetDeletedUser(ctx context.Context, in *GetDeletedUserRequest, opts ...grpc.CallOption) (*GetDeletedUserReply, error) {
+	out := new(GetDeletedUserReply)
+	err := c.cc.Invoke(ctx, "/api.user.User/GetDeletedUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userClient) ListUser(ctx context.Context, in *ListUserRequest, opts ...grpc.CallOption) (*ListUserReply, error) {
 	out := new(ListUserReply)
 	err := c.cc.Invoke(ctx, "/api.user.User/ListUser", in, out, opts...)
@@ -152,6 +162,7 @@ type UserServer interface {
 	UpdateStatus(context.Context, *UpdateStatusRequest) (*UpdateStatusReply, error)
 	DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserReply, error)
 	GetUser(context.Context, *GetUserRequest) (*GetUserReply, error)
+	GetDeletedUser(context.Context, *GetDeletedUserRequest) (*GetDeletedUserReply, error)
 	ListUser(context.Context, *ListUserRequest) (*ListUserReply, error)
 	GetUserByUsername(context.Context, *GetUserByUsernameRequest) (*GetUserByUsernameReply, error)
 	GetStatus(context.Context, *GetStatusRequest) (*GetStatusReply, error)
@@ -181,6 +192,9 @@ func (UnimplementedUserServer) DeleteUser(context.Context, *DeleteUserRequest) (
 }
 func (UnimplementedUserServer) GetUser(context.Context, *GetUserRequest) (*GetUserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
+}
+func (UnimplementedUserServer) GetDeletedUser(context.Context, *GetDeletedUserRequest) (*GetDeletedUserReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDeletedUser not implemented")
 }
 func (UnimplementedUserServer) ListUser(context.Context, *ListUserRequest) (*ListUserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListUser not implemented")
@@ -318,6 +332,24 @@ func _User_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_GetDeletedUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDeletedUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).GetDeletedUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.user.User/GetDeletedUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).GetDeletedUser(ctx, req.(*GetDeletedUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _User_ListUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListUserRequest)
 	if err := dec(in); err != nil {
@@ -438,6 +470,10 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUser",
 			Handler:    _User_GetUser_Handler,
+		},
+		{
+			MethodName: "GetDeletedUser",
+			Handler:    _User_GetDeletedUser_Handler,
 		},
 		{
 			MethodName: "ListUser",

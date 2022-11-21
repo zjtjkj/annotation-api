@@ -11,6 +11,7 @@ service User {
 	rpc UpdateStatus(UpdateStatusRequest) returns (UpdateStatusReply);
 	rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply);
 	rpc GetUser (GetUserRequest) returns (GetUserReply);
+	rpc GetDeletedUser(GetDeletedUserRequest) returns (GetDeletedUserReply);
 	rpc ListUser (ListUserRequest) returns (ListUserReply);
 	rpc GetUserByUsername(GetUserByUsernameRequest) returns (GetUserByUsernameReply);
 	rpc GetStatus(GetStatusRequest) returns (GetStatusReply);
@@ -68,6 +69,21 @@ message GetUserRequest {
 	uint32 id = 1;
 }
 message GetUserReply {
+	message User {
+		uint32 id = 1;
+		string username = 2;
+		string password = 3;
+		string name = 4;
+		string contact = 5;
+		Status status = 6;
+	}
+	User user = 1;
+}
+
+message GetDeletedUserRequest {
+	uint32 id = 1;
+}
+message GetDeletedUserReply {
 	message User {
 		uint32 id = 1;
 		string username = 2;
