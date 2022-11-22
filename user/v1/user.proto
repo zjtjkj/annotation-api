@@ -1,22 +1,83 @@
 syntax = "proto3";
 
 package api.user;
+import "google/api/annotations.proto";
 
 option go_package = "user/api/user/v1;v1";
 
 service User {
-	rpc CreateUser (CreateUserRequest) returns (CreateUserReply);
-	rpc UpdateUser (UpdateUserRequest) returns (UpdateUserReply);
-	rpc UpdatePwd(UpdatePwdRequest) returns (UpdatePwdReply);
-	rpc UpdateStatus(UpdateStatusRequest) returns (UpdateStatusReply);
-	rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply);
-	rpc GetUser (GetUserRequest) returns (GetUserReply);
-	rpc GetDeletedUser(GetDeletedUserRequest) returns (GetDeletedUserReply);
-	rpc ListUser (ListUserRequest) returns (ListUserReply);
-	rpc GetUserByUsername(GetUserByUsernameRequest) returns (GetUserByUsernameReply);
-	rpc GetStatus(GetStatusRequest) returns (GetStatusReply);
-	rpc DistributeGroup(DistributeGroupRequest) returns (DistributeGroupReply);
-	rpc GetGroups(GetGroupsRequest) returns (GetGroupsReply);
+	rpc CreateUser (CreateUserRequest) returns (CreateUserReply) {
+		option (google.api.http) = {
+			post: "/api/v1/user/create"
+			body: "*"
+		};
+	}
+	rpc UpdateUser (UpdateUserRequest) returns (UpdateUserReply) {
+		option (google.api.http) = {
+			post: "/api/v1/user/update"
+			body: "*"
+		};
+	}
+	rpc UpdatePwd(UpdatePwdRequest) returns (UpdatePwdReply) {
+		option (google.api.http) = {
+			post: "/api/v1/user/pwd/update"
+			body: "*"
+		};
+	}
+	rpc UpdateStatus(UpdateStatusRequest) returns (UpdateStatusReply){
+		option (google.api.http) = {
+			post: "/api/v1/user/status/update"
+			body: "*"
+		};
+	}
+	rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply) {
+		option (google.api.http) = {
+			post: "/api/v1/user/delete"
+			body: "*"
+		};
+	}
+	rpc GetUser (GetUserRequest) returns (GetUserReply) {
+		option (google.api.http) = {
+			post: "/api/v1/user/get"
+			body: "*"
+		};
+	}
+	rpc GetDeletedUser(GetDeletedUserRequest) returns (GetDeletedUserReply) {
+		option (google.api.http) = {
+			post: "/api/v1/user/deleted/get"
+			body: "*"
+		};
+	}
+	rpc ListUser (ListUserRequest) returns (ListUserReply) {
+		option (google.api.http) = {
+			post: "/api/v1/user/list"
+			body: "*"
+		};
+	}
+	rpc GetUserByUsername(GetUserByUsernameRequest) returns (GetUserByUsernameReply) {
+		option (google.api.http) = {
+			post: "/api/v1/user/get/username"
+			body: "*"
+		};
+	}
+	rpc GetStatus(GetStatusRequest) returns (GetStatusReply) {
+		option (google.api.http) = {
+			post: "/api/v1/status/get"
+			body: "*"
+		};
+	}
+	rpc DistributeGroup(DistributeGroupRequest) returns (DistributeGroupReply) {
+		option (google.api.http) = {
+			post: "/api/v1/user/distribute"
+			body: "*"
+		};
+	}
+	rpc GetGroups(GetGroupsRequest) returns (GetGroupsReply) {
+		option (google.api.http) = {
+			post: "/api/v1/user/group/get"
+			body: "*"
+		};
+	}
 }
 
 enum Status {
@@ -96,12 +157,26 @@ message GetDeletedUserReply {
 }
 
 message ListUserRequest {
-	string username = 1;
-	string name = 2;
-	string contact = 3;
-	repeated Status status = 4;
+	message Paging {
+		uint32 index = 1;
+		uint32 size = 2;
+	}
+	message Condition {
+		string username = 1;
+		string name = 2;
+		string contact = 3;
+		repeated Status status = 4;
+	}
+	Paging paging = 1;
+	Condition condition = 2;
 }
 message ListUserReply {
+	message Paging {
+		uint32 index = 1;
+		uint32 size = 2;
+		uint32 page = 4;
+		uint64 total = 3;
+	}
 	message User {
 		uint32 id = 1;
 		string username = 2;
@@ -110,7 +185,8 @@ message ListUserReply {
 		string contact = 5;
 		Status status = 6;
 	}
-	repeated User users = 1;
+	Paging paging = 1;
+	repeated User users = 2;
 }
 
 message GetUserByUsernameRequest {

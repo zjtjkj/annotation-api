@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.20.0
-// source: api/preference/v1/preference.proto
+// source: preference/v1/preference.proto
 
 package v1
 
@@ -137,5 +137,5 @@ var Preference_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "api/preference/v1/preference.proto",
+	Metadata: "preference/v1/preference.proto",
 }

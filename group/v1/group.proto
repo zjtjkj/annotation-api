@@ -1,16 +1,46 @@
 syntax = "proto3";
 
 package api.group;
+import "google/api/annotations.proto";
 
 option go_package = "user/api/group/v1;v1";
 
 service Group {
-	rpc CreateGroup (CreateGroupRequest) returns (CreateGroupReply);
-	rpc UpdateGroup (UpdateGroupRequest) returns (UpdateGroupReply);
-	rpc DeleteGroup (DeleteGroupRequest) returns (DeleteGroupReply);
-	rpc GetGroup (GetGroupRequest) returns (GetGroupReply);
-	rpc ListGroup (ListGroupRequest) returns (ListGroupReply);
-	rpc GetUsers (GetUsersRequest) returns (GetUsersReply);
+	rpc CreateGroup (CreateGroupRequest) returns (CreateGroupReply) {
+		option (google.api.http) = {
+			post: "/api/v1/group/create"
+			body: "*"
+		};
+	}
+	rpc UpdateGroup (UpdateGroupRequest) returns (UpdateGroupReply) {
+		option (google.api.http) = {
+			post: "/api/v1/group/update"
+			body: "*"
+		};
+	}
+	rpc DeleteGroup (DeleteGroupRequest) returns (DeleteGroupReply) {
+		option (google.api.http) = {
+			post: "/api/v1/group/delete"
+			body: "*"
+		};
+	}
+	rpc GetGroup (GetGroupRequest) returns (GetGroupReply) {
+		option (google.api.http) = {
+			post: "/api/v1/group/get"
+			body: "*"
+		};
+	}
+	rpc ListGroup (ListGroupRequest) returns (ListGroupReply) {
+		option (google.api.http) = {
+			get: "/api/v1/group/list"
+		};
+	}
+	rpc GetUsers (GetUsersRequest) returns (GetUsersReply) {
+		option (google.api.http) = {
+			post: "/api/v1/group/user/get"
+			body: "*"
+		};
+	}
 }
 
 message CreateGroupRequest {

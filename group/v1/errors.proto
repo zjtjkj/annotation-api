@@ -1,10 +1,12 @@
 syntax = "proto3";
 
 package api.group;
+import "errors/errors.proto";
 
 option go_package = "group/api/group/v1;v1";
 
 enum ErrorReason {
-  Group_Already_Existed = 0;
-  Group_Not_Found = 1;
+  option (errors.default_code) = 500;
+  Group_Already_Existed = 0 [(errors.code) = 409];
+  Group_Not_Found = 1 [(errors.code) = 404];
 }

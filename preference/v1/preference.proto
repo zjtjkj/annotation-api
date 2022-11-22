@@ -1,13 +1,24 @@
 syntax = "proto3";
 
 package api.preference;
+import "google/api/annotations.proto";
 
 option go_package = "user/api/preference/v1;v1";
 
 // Preference 偏好设置
 service Preference {
-	rpc UpdatePreference (UpdatePreferenceRequest) returns (UpdatePreferenceReply);
-	rpc GetPreference (GetPreferenceRequest) returns (GetPreferenceReply);
+	rpc UpdatePreference (UpdatePreferenceRequest) returns (UpdatePreferenceReply) {
+		option (google.api.http) = {
+			post: "/api/v1/preference/update"
+			body: "*"
+		};
+	}
+	rpc GetPreference (GetPreferenceRequest) returns (GetPreferenceReply) {
+		option (google.api.http) = {
+			post: "/api/v1/preference/get"
+			body: "*"
+		};
+	}
 }
 
 message UpdatePreferenceRequest {
