@@ -19,12 +19,12 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
-const OperationGroupCreateGroup = "/api.group.Group/CreateGroup"
-const OperationGroupDeleteGroup = "/api.group.Group/DeleteGroup"
-const OperationGroupGetGroup = "/api.group.Group/GetGroup"
-const OperationGroupGetUsers = "/api.group.Group/GetUsers"
-const OperationGroupListGroup = "/api.group.Group/ListGroup"
-const OperationGroupUpdateGroup = "/api.group.Group/UpdateGroup"
+const OperationGroupCreateGroup = "/api.group.v1.Group/CreateGroup"
+const OperationGroupDeleteGroup = "/api.group.v1.Group/DeleteGroup"
+const OperationGroupGetGroup = "/api.group.v1.Group/GetGroup"
+const OperationGroupGetUsers = "/api.group.v1.Group/GetUsers"
+const OperationGroupListGroup = "/api.group.v1.Group/ListGroup"
+const OperationGroupUpdateGroup = "/api.group.v1.Group/UpdateGroup"
 
 type GroupHTTPServer interface {
 	CreateGroup(context.Context, *CreateGroupRequest) (*CreateGroupReply, error)

@@ -19,8 +19,8 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
-const OperationPreferenceGetPreference = "/api.preference.Preference/GetPreference"
-const OperationPreferenceUpdatePreference = "/api.preference.Preference/UpdatePreference"
+const OperationPreferenceGetPreference = "/api.preference.v1.Preference/GetPreference"
+const OperationPreferenceUpdatePreference = "/api.preference.v1.Preference/UpdatePreference"
 
 type PreferenceHTTPServer interface {
 	GetPreference(context.Context, *GetPreferenceRequest) (*GetPreferenceReply, error)

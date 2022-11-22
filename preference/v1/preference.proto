@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package api.preference;
+package api.preference.v1;
 import "google/api/annotations.proto";
 
 option go_package = "user/api/preference/v1;v1";

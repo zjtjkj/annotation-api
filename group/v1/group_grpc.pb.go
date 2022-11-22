@@ -40,7 +40,7 @@ func NewGroupClient(cc grpc.ClientConnInterface) GroupClient {
 
 func (c *groupClient) CreateGroup(ctx context.Context, in *CreateGroupRequest, opts ...grpc.CallOption) (*CreateGroupReply, error) {
 	out := new(CreateGroupReply)
-	err := c.cc.Invoke(ctx, "/api.group.Group/CreateGroup", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.group.v1.Group/CreateGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func (c *groupClient) CreateGroup(ctx context.Context, in *CreateGroupRequest, o
 
 func (c *groupClient) UpdateGroup(ctx context.Context, in *UpdateGroupRequest, opts ...grpc.CallOption) (*UpdateGroupReply, error) {
 	out := new(UpdateGroupReply)
-	err := c.cc.Invoke(ctx, "/api.group.Group/UpdateGroup", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.group.v1.Group/UpdateGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (c *groupClient) UpdateGroup(ctx context.Context, in *UpdateGroupRequest, o
 
 func (c *groupClient) DeleteGroup(ctx context.Context, in *DeleteGroupRequest, opts ...grpc.CallOption) (*DeleteGroupReply, error) {
 	out := new(DeleteGroupReply)
-	err := c.cc.Invoke(ctx, "/api.group.Group/DeleteGroup", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.group.v1.Group/DeleteGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +67,7 @@ func (c *groupClient) DeleteGroup(ctx context.Context, in *DeleteGroupRequest, o
 
 func (c *groupClient) GetGroup(ctx context.Context, in *GetGroupRequest, opts ...grpc.CallOption) (*GetGroupReply, error) {
 	out := new(GetGroupReply)
-	err := c.cc.Invoke(ctx, "/api.group.Group/GetGroup", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.group.v1.Group/GetGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func (c *groupClient) GetGroup(ctx context.Context, in *GetGroupRequest, opts ..
 
 func (c *groupClient) ListGroup(ctx context.Context, in *ListGroupRequest, opts ...grpc.CallOption) (*ListGroupReply, error) {
 	out := new(ListGroupReply)
-	err := c.cc.Invoke(ctx, "/api.group.Group/ListGroup", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.group.v1.Group/ListGroup", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (c *groupClient) ListGroup(ctx context.Context, in *ListGroupRequest, opts 
 
 func (c *groupClient) GetUsers(ctx context.Context, in *GetUsersRequest, opts ...grpc.CallOption) (*GetUsersReply, error) {
 	out := new(GetUsersReply)
-	err := c.cc.Invoke(ctx, "/api.group.Group/GetUsers", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.group.v1.Group/GetUsers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -150,7 +150,7 @@ func _Group_CreateGroup_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.group.Group/CreateGroup",
+		FullMethod: "/api.group.v1.Group/CreateGroup",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(GroupServer).CreateGroup(ctx, req.(*CreateGroupRequest))
@@ -168,7 +168,7 @@ func _Group_UpdateGroup_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.group.Group/UpdateGroup",
+		FullMethod: "/api.group.v1.Group/UpdateGroup",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(GroupServer).UpdateGroup(ctx, req.(*UpdateGroupRequest))
@@ -186,7 +186,7 @@ func _Group_DeleteGroup_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.group.Group/DeleteGroup",
+		FullMethod: "/api.group.v1.Group/DeleteGroup",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(GroupServer).DeleteGroup(ctx, req.(*DeleteGroupRequest))
@@ -204,7 +204,7 @@ func _Group_GetGroup_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.group.Group/GetGroup",
+		FullMethod: "/api.group.v1.Group/GetGroup",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(GroupServer).GetGroup(ctx, req.(*GetGroupRequest))
@@ -222,7 +222,7 @@ func _Group_ListGroup_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.group.Group/ListGroup",
+		FullMethod: "/api.group.v1.Group/ListGroup",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(GroupServer).ListGroup(ctx, req.(*ListGroupRequest))
@@ -240,7 +240,7 @@ func _Group_GetUsers_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.group.Group/GetUsers",
+		FullMethod: "/api.group.v1.Group/GetUsers",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(GroupServer).GetUsers(ctx, req.(*GetUsersRequest))
@@ -252,7 +252,7 @@ func _Group_GetUsers_Handler(srv interface{}, ctx context.Context, dec func(inte
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Group_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.group.Group",
+	ServiceName: "api.group.v1.Group",
 	HandlerType: (*GroupServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

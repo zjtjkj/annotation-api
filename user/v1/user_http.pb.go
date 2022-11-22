@@ -19,18 +19,18 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
-const OperationUserCreateUser = "/api.user.User/CreateUser"
-const OperationUserDeleteUser = "/api.user.User/DeleteUser"
-const OperationUserDistributeGroup = "/api.user.User/DistributeGroup"
-const OperationUserGetDeletedUser = "/api.user.User/GetDeletedUser"
-const OperationUserGetGroups = "/api.user.User/GetGroups"
-const OperationUserGetStatus = "/api.user.User/GetStatus"
-const OperationUserGetUser = "/api.user.User/GetUser"
-const OperationUserGetUserByUsername = "/api.user.User/GetUserByUsername"
-const OperationUserListUser = "/api.user.User/ListUser"
-const OperationUserUpdatePwd = "/api.user.User/UpdatePwd"
-const OperationUserUpdateStatus = "/api.user.User/UpdateStatus"
-const OperationUserUpdateUser = "/api.user.User/UpdateUser"
+const OperationUserCreateUser = "/api.user.v1.User/CreateUser"
+const OperationUserDeleteUser = "/api.user.v1.User/DeleteUser"
+const OperationUserDistributeGroup = "/api.user.v1.User/DistributeGroup"
+const OperationUserGetDeletedUser = "/api.user.v1.User/GetDeletedUser"
+const OperationUserGetGroups = "/api.user.v1.User/GetGroups"
+const OperationUserGetStatus = "/api.user.v1.User/GetStatus"
+const OperationUserGetUser = "/api.user.v1.User/GetUser"
+const OperationUserGetUserByUsername = "/api.user.v1.User/GetUserByUsername"
+const OperationUserListUser = "/api.user.v1.User/ListUser"
+const OperationUserUpdatePwd = "/api.user.v1.User/UpdatePwd"
+const OperationUserUpdateStatus = "/api.user.v1.User/UpdateStatus"
+const OperationUserUpdateUser = "/api.user.v1.User/UpdateUser"
 
 type UserHTTPServer interface {
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserReply, error)

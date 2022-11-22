@@ -36,7 +36,7 @@ func NewPreferenceClient(cc grpc.ClientConnInterface) PreferenceClient {
 
 func (c *preferenceClient) UpdatePreference(ctx context.Context, in *UpdatePreferenceRequest, opts ...grpc.CallOption) (*UpdatePreferenceReply, error) {
 	out := new(UpdatePreferenceReply)
-	err := c.cc.Invoke(ctx, "/api.preference.Preference/UpdatePreference", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.preference.v1.Preference/UpdatePreference", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (c *preferenceClient) UpdatePreference(ctx context.Context, in *UpdatePrefe
 
 func (c *preferenceClient) GetPreference(ctx context.Context, in *GetPreferenceRequest, opts ...grpc.CallOption) (*GetPreferenceReply, error) {
 	out := new(GetPreferenceReply)
-	err := c.cc.Invoke(ctx, "/api.preference.Preference/GetPreference", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.preference.v1.Preference/GetPreference", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func _Preference_UpdatePreference_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.preference.Preference/UpdatePreference",
+		FullMethod: "/api.preference.v1.Preference/UpdatePreference",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PreferenceServer).UpdatePreference(ctx, req.(*UpdatePreferenceRequest))
@@ -112,7 +112,7 @@ func _Preference_GetPreference_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.preference.Preference/GetPreference",
+		FullMethod: "/api.preference.v1.Preference/GetPreference",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PreferenceServer).GetPreference(ctx, req.(*GetPreferenceRequest))
@@ -124,7 +124,7 @@ func _Preference_GetPreference_Handler(srv interface{}, ctx context.Context, dec
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Preference_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.preference.Preference",
+	ServiceName: "api.preference.v1.Preference",
 	HandlerType: (*PreferenceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
