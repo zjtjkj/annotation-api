@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package api.group;
 
-import "validate/validate.proto";
-
 option go_package = "user/api/group/v1;v1";
 
 service Group {
@@ -16,14 +14,14 @@ service Group {
 }
 
 message CreateGroupRequest {
-	string name = 1 [(validate.rules).string.min_len = 1];
+	string name = 1;
 }
 message CreateGroupReply {}
 
 message UpdateGroupRequest {
 	message Group {
 		uint32 id = 1;
-		string name = 2 [(validate.rules).string.min_len = 1];
+		string name = 2;
 	}
 	Group group = 1;
 }

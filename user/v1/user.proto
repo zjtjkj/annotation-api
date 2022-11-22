@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package api.user;
 
-import "validate/validate.proto";
-
 option go_package = "user/api/user/v1;v1";
 
 service User {
@@ -29,11 +27,11 @@ enum Status {
 
 message CreateUserRequest {
 	message User {
-		string username = 1 [(validate.rules).string.min_len = 3];
-		string password = 2 [(validate.rules).string.min_len = 8];
+		string username = 1;
+		string password = 2;
 		string name = 3;
 		string contact = 4;
-		Status status = 5 [(validate.rules).enum = {in: [0, 1, 2]}];
+		Status status = 5;
 	}
 	User user = 1;
 }
@@ -41,7 +39,7 @@ message CreateUserReply {}
 
 message UpdateUserRequest {
 	message User {
-		string username = 1 [(validate.rules).string.min_len = 3];
+		string username = 1;
 		string name = 2;
 		string contact = 3;
 	}
@@ -52,13 +50,13 @@ message UpdateUserReply {}
 
 message UpdatePwdRequest {
 	uint32 id = 1;
-	string password = 2 [(validate.rules).string.min_len = 8];
+	string password = 2;
 }
 message UpdatePwdReply {}
 
 message UpdateStatusRequest {
 	uint32 id = 1;
-	Status status = 2 [(validate.rules).enum = {in: [0,1,2]}];
+	Status status = 2;
 }
 message UpdateStatusReply {}
 
