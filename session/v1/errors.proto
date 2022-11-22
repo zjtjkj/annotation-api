@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package api.session.v1;
+import "errors/errors.proto";
+
+option go_package = "session/api/session/v1;v1";
+
+enum ErrorReason {
+  option (errors.default_code) = 500;
+  Session_Not_Found = 0 [(errors.code) = 404];
+}

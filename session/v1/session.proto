@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package api.session.v1;
+import "google/api/annotations.proto";
+
+option go_package = "session/api/session/v1;v1";
+
+service Session {
+	rpc CreateSession (CreateSessionRequest) returns (CreateSessionReply) {
+		option (google.api.http) = {
+			post: "/api/v1/session/create"
+			body: "*"
+		};
+	}
+	rpc UpdateSession (UpdateSessionRequest) returns (UpdateSessionReply) {
+		option (google.api.http) = {
+			post: "/api/v1/session/update"
+			body: "*"
+		};
+	}
+	rpc DeleteSession (DeleteSessionRequest) returns (DeleteSessionReply) {
+		option (google.api.http) = {
+			post: "/api/v1/session/delete"
+			body: "*"
+		};
+	}
+	rpc GetSession (GetSessionRequest) returns (GetSessionReply) {
+		option (google.api.http) = {
+			post: "/api/v1/session/get"
+			body: "*"
+		};
+	}
+	rpc GCSession (GCSessionRequest) returns (GCSessionReply) {
+		option (google.api.http) = {
+			post: "/api/v1/session/gc"
+			body: "*"
+		};
+	}
+}
+
+message CreateSessionRequest {
+	message User {
+		uint32 id = 1;
+		string username = 2;
+		string status = 3;
+	}
+	User user = 1;
+}
+message CreateSessionReply {
+	message Session {
+		message User {
+			uint32 id = 1;
+			string username = 2;
+			string status = 3;
+		}
+		string id = 1;
+		User user = 2;
+	}
+	Session session = 1;
+}
+
+message UpdateSessionRequest {
+	message User {
+		uint32 id = 1;
+		string username = 2;
+		string status = 3;
+	}
+	User user = 1;
+}
+message UpdateSessionReply {}
+
+message DeleteSessionRequest {
+	uint32 user_id = 1;
+	string session_id = 2;
+}
+message DeleteSessionReply {}
+
+message GetSessionRequest {
+	string id = 1;
+}
+message GetSessionReply {
+	message Session {
+		message User {
+			uint32 id = 1;
+			string username = 2;
+			string status = 3;
+		}
+		string id = 1;
+		User user = 2;
+	}
+	Session session = 1;
+}
+
+message GCSessionRequest {
+	uint32 id = 1;
+}
+message GCSessionReply {}
