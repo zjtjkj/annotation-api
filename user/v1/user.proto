@@ -166,6 +166,7 @@ message ListUserRequest {
 		string name = 2;
 		string contact = 3;
 		repeated Status status = 4;
+		repeated uint32 Group = 5;
 	}
 	Paging paging = 1;
 	Condition condition = 2;
@@ -175,15 +176,20 @@ message ListUserReply {
 		uint32 index = 1;
 		uint32 size = 2;
 		uint32 page = 4;
-		uint64 total = 3;
+		uint32 total = 3;
 	}
 	message User {
+		message Group {
+			uint32 id = 1;
+			string name = 2;
+		}
 		uint32 id = 1;
 		string username = 2;
 		string password = 3;
 		string name = 4;
 		string contact = 5;
 		Status status = 6;
+		repeated Group group = 7;
 	}
 	Paging paging = 1;
 	repeated User users = 2;
