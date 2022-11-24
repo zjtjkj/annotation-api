@@ -162,9 +162,7 @@ message ListUserRequest {
 		uint32 size = 2;
 	}
 	message Condition {
-		string username = 1;
-		string name = 2;
-		string contact = 3;
+		string keyword = 1;
 		repeated Status status = 4;
 		repeated uint32 Group = 5;
 	}
