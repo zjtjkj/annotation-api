@@ -73,13 +73,30 @@ message GetGroupReply {
 	Group group = 1;
 }
 
-message ListGroupRequest {}
+message ListGroupRequest {
+	message Paging {
+		uint32 index = 1;
+		uint32 size = 2;
+	}
+	message Condition {
+		string keyword = 1;
+	}
+	Paging paging = 1;
+	Condition condition = 2;
+}
 message ListGroupReply {
+	message Paging {
+		uint32 index = 1;
+		uint32 size = 2;
+		uint32 page = 4;
+		uint32 total = 3;
+	}
 	message Group {
 		uint32 id = 1;
 		string name = 2;
 	}
-	repeated Group groups = 1;
+	Paging paging = 1;
+	repeated Group groups = 2;
 }
 
 message GetUsersRequest {
