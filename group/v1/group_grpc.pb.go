@@ -25,7 +25,7 @@ type GroupClient interface {
 	CreateGroup(ctx context.Context, in *CreateGroupRequest, opts ...grpc.CallOption) (*CreateGroupReply, error)
 	UpdateGroup(ctx context.Context, in *UpdateGroupRequest, opts ...grpc.CallOption) (*UpdateGroupReply, error)
 	DeleteGroup(ctx context.Context, in *DeleteGroupRequest, opts ...grpc.CallOption) (*DeleteGroupReply, error)
-	GetGroup(ctx context.Context, in *GetGroupRequest, opts ...grpc.CallOption) (*GetGroupReply, error)
+	GetGroupList(ctx context.Context, in *GetGroupListRequest, opts ...grpc.CallOption) (*GetGroupListReply, error)
 	ListGroup(ctx context.Context, in *ListGroupRequest, opts ...grpc.CallOption) (*ListGroupReply, error)
 }
 
@@ -64,9 +64,9 @@ func (c *groupClient) DeleteGroup(ctx context.Context, in *DeleteGroupRequest, o
 	return out, nil
 }
 
-func (c *groupClient) GetGroup(ctx context.Context, in *GetGroupRequest, opts ...grpc.CallOption) (*GetGroupReply, error) {
-	out := new(GetGroupReply)
-	err := c.cc.Invoke(ctx, "/api.group.v1.Group/GetGroup", in, out, opts...)
+func (c *groupClient) GetGroupList(ctx context.Context, in *GetGroupListRequest, opts ...grpc.CallOption) (*GetGroupListReply, error) {
+	out := new(GetGroupListReply)
+	err := c.cc.Invoke(ctx, "/api.group.v1.Group/GetGroupList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ type GroupServer interface {
 	CreateGroup(context.Context, *CreateGroupRequest) (*CreateGroupReply, error)
 	UpdateGroup(context.Context, *UpdateGroupRequest) (*UpdateGroupReply, error)
 	DeleteGroup(context.Context, *DeleteGroupRequest) (*DeleteGroupReply, error)
-	GetGroup(context.Context, *GetGroupRequest) (*GetGroupReply, error)
+	GetGroupList(context.Context, *GetGroupListRequest) (*GetGroupListReply, error)
 	ListGroup(context.Context, *ListGroupRequest) (*ListGroupReply, error)
 	mustEmbedUnimplementedGroupServer()
 }
@@ -107,8 +107,8 @@ func (UnimplementedGroupServer) UpdateGroup(context.Context, *UpdateGroupRequest
 func (UnimplementedGroupServer) DeleteGroup(context.Context, *DeleteGroupRequest) (*DeleteGroupReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteGroup not implemented")
 }
-func (UnimplementedGroupServer) GetGroup(context.Context, *GetGroupRequest) (*GetGroupReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetGroup not implemented")
+func (UnimplementedGroupServer) GetGroupList(context.Context, *GetGroupListRequest) (*GetGroupListReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGroupList not implemented")
 }
 func (UnimplementedGroupServer) ListGroup(context.Context, *ListGroupRequest) (*ListGroupReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListGroup not implemented")
@@ -180,20 +180,20 @@ func _Group_DeleteGroup_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Group_GetGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetGroupRequest)
+func _Group_GetGroupList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetGroupListRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GroupServer).GetGroup(ctx, in)
+		return srv.(GroupServer).GetGroupList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.group.v1.Group/GetGroup",
+		FullMethod: "/api.group.v1.Group/GetGroupList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GroupServer).GetGroup(ctx, req.(*GetGroupRequest))
+		return srv.(GroupServer).GetGroupList(ctx, req.(*GetGroupListRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -236,8 +236,8 @@ var Group_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Group_DeleteGroup_Handler,
 		},
 		{
-			MethodName: "GetGroup",
-			Handler:    _Group_GetGroup_Handler,
+			MethodName: "GetGroupList",
+			Handler:    _Group_GetGroupList_Handler,
 		},
 		{
 			MethodName: "ListGroup",

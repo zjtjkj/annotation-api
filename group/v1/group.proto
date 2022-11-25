@@ -24,7 +24,7 @@ service Group {
 			body: "*"
 		};
 	}
-	rpc GetGroup (GetGroupRequest) returns (GetGroupReply) {
+	rpc GetGroupList (GetGroupListRequest) returns (GetGroupListReply) {
 		option (google.api.http) = {
 			post: "/api/v1/group/get"
 			body: "*"
@@ -56,15 +56,13 @@ message DeleteGroupRequest {
 }
 message DeleteGroupReply {}
 
-message GetGroupRequest {
-	uint32 id = 1;
-}
-message GetGroupReply {
+message GetGroupListRequest {}
+message GetGroupListReply {
 	message Group {
 		uint32 id = 1;
 		string name = 2;
 	}
-	Group group = 1;
+	repeated Group groups = 1;
 }
 
 message ListGroupRequest {

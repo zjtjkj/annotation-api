@@ -22,15 +22,3 @@ func IsGroupAlreadyExisted(err error) bool {
 func ErrorGroupAlreadyExisted(format string, args ...interface{}) *errors.Error {
 	return errors.New(409, ErrorReason_Group_Already_Existed.String(), fmt.Sprintf(format, args...))
 }
-
-func IsGroupNotFound(err error) bool {
-	if err == nil {
-		return false
-	}
-	e := errors.FromError(err)
-	return e.Reason == ErrorReason_Group_Not_Found.String() && e.Code == 404
-}
-
-func ErrorGroupNotFound(format string, args ...interface{}) *errors.Error {
-	return errors.New(404, ErrorReason_Group_Not_Found.String(), fmt.Sprintf(format, args...))
-}
