@@ -37,6 +37,12 @@ service Group {
 	}
 }
 
+enum Status {
+	Annotator = 0;
+	Auditor = 1;
+	Administrator = 2;
+}
+
 message CreateGroupRequest {
 	string name = 1;
 }
@@ -59,8 +65,14 @@ message DeleteGroupReply {}
 message GetGroupListRequest {}
 message GetGroupListReply {
 	message Group {
+		message User {
+			uint32 id = 1;
+			string name = 2;
+			Status status = 3;
+		}
 		uint32 id = 1;
 		string name = 2;
+		repeated User users = 3;
 	}
 	repeated Group groups = 1;
 }
