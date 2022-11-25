@@ -72,12 +72,6 @@ service User {
 			body: "*"
 		};
 	}
-	rpc GetGroups(GetGroupsRequest) returns (GetGroupsReply) {
-		option (google.api.http) = {
-			post: "/api/v1/user/group/get"
-			body: "*"
-		};
-	}
 }
 
 enum Status {
@@ -222,14 +216,3 @@ message DistributeGroupRequest {
 	repeated uint32 groups = 2;
 }
 message DistributeGroupReply {}
-
-message GetGroupsRequest{
-	uint32 id = 1;
-}
-message GetGroupsReply {
-	message Group {
-		uint32 id = 1;
-		string name = 2;
-	}
-	repeated Group groups = 1;
-}

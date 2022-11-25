@@ -22,7 +22,6 @@ const _ = http.SupportPackageIsVersion1
 const OperationGroupCreateGroup = "/api.group.v1.Group/CreateGroup"
 const OperationGroupDeleteGroup = "/api.group.v1.Group/DeleteGroup"
 const OperationGroupGetGroup = "/api.group.v1.Group/GetGroup"
-const OperationGroupGetUsers = "/api.group.v1.Group/GetUsers"
 const OperationGroupListGroup = "/api.group.v1.Group/ListGroup"
 const OperationGroupUpdateGroup = "/api.group.v1.Group/UpdateGroup"
 
@@ -30,7 +29,6 @@ type GroupHTTPServer interface {
 	CreateGroup(context.Context, *CreateGroupRequest) (*CreateGroupReply, error)
 	DeleteGroup(context.Context, *DeleteGroupRequest) (*DeleteGroupReply, error)
 	GetGroup(context.Context, *GetGroupRequest) (*GetGroupReply, error)
-	GetUsers(context.Context, *GetUsersRequest) (*GetUsersReply, error)
 	ListGroup(context.Context, *ListGroupRequest) (*ListGroupReply, error)
 	UpdateGroup(context.Context, *UpdateGroupRequest) (*UpdateGroupReply, error)
 }
@@ -42,7 +40,6 @@ func RegisterGroupHTTPServer(s *http.Server, srv GroupHTTPServer) {
 	r.POST("/api/v1/group/delete", _Group_DeleteGroup0_HTTP_Handler(srv))
 	r.POST("/api/v1/group/get", _Group_GetGroup0_HTTP_Handler(srv))
 	r.GET("/api/v1/group/list", _Group_ListGroup0_HTTP_Handler(srv))
-	r.POST("/api/v1/group/user/get", _Group_GetUsers0_HTTP_Handler(srv))
 }
 
 func _Group_CreateGroup0_HTTP_Handler(srv GroupHTTPServer) func(ctx http.Context) error {
@@ -140,30 +137,10 @@ func _Group_ListGroup0_HTTP_Handler(srv GroupHTTPServer) func(ctx http.Context) 
 	}
 }
 
-func _Group_GetUsers0_HTTP_Handler(srv GroupHTTPServer) func(ctx http.Context) error {
-	return func(ctx http.Context) error {
-		var in GetUsersRequest
-		if err := ctx.Bind(&in); err != nil {
-			return err
-		}
-		http.SetOperation(ctx, OperationGroupGetUsers)
-		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetUsers(ctx, req.(*GetUsersRequest))
-		})
-		out, err := h(ctx, &in)
-		if err != nil {
-			return err
-		}
-		reply := out.(*GetUsersReply)
-		return ctx.Result(200, reply)
-	}
-}
-
 type GroupHTTPClient interface {
 	CreateGroup(ctx context.Context, req *CreateGroupRequest, opts ...http.CallOption) (rsp *CreateGroupReply, err error)
 	DeleteGroup(ctx context.Context, req *DeleteGroupRequest, opts ...http.CallOption) (rsp *DeleteGroupReply, err error)
 	GetGroup(ctx context.Context, req *GetGroupRequest, opts ...http.CallOption) (rsp *GetGroupReply, err error)
-	GetUsers(ctx context.Context, req *GetUsersRequest, opts ...http.CallOption) (rsp *GetUsersReply, err error)
 	ListGroup(ctx context.Context, req *ListGroupRequest, opts ...http.CallOption) (rsp *ListGroupReply, err error)
 	UpdateGroup(ctx context.Context, req *UpdateGroupRequest, opts ...http.CallOption) (rsp *UpdateGroupReply, err error)
 }
@@ -207,19 +184,6 @@ func (c *GroupHTTPClientImpl) GetGroup(ctx context.Context, in *GetGroupRequest,
 	pattern := "/api/v1/group/get"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationGroupGetGroup))
-	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &out, err
-}
-
-func (c *GroupHTTPClientImpl) GetUsers(ctx context.Context, in *GetUsersRequest, opts ...http.CallOption) (*GetUsersReply, error) {
-	var out GetUsersReply
-	pattern := "/api/v1/group/user/get"
-	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationGroupGetUsers))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

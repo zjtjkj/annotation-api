@@ -23,7 +23,6 @@ const OperationUserCreateUser = "/api.user.v1.User/CreateUser"
 const OperationUserDeleteUser = "/api.user.v1.User/DeleteUser"
 const OperationUserDistributeGroup = "/api.user.v1.User/DistributeGroup"
 const OperationUserGetDeletedUser = "/api.user.v1.User/GetDeletedUser"
-const OperationUserGetGroups = "/api.user.v1.User/GetGroups"
 const OperationUserGetStatus = "/api.user.v1.User/GetStatus"
 const OperationUserGetUser = "/api.user.v1.User/GetUser"
 const OperationUserGetUserByUsername = "/api.user.v1.User/GetUserByUsername"
@@ -37,7 +36,6 @@ type UserHTTPServer interface {
 	DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserReply, error)
 	DistributeGroup(context.Context, *DistributeGroupRequest) (*DistributeGroupReply, error)
 	GetDeletedUser(context.Context, *GetDeletedUserRequest) (*GetDeletedUserReply, error)
-	GetGroups(context.Context, *GetGroupsRequest) (*GetGroupsReply, error)
 	GetStatus(context.Context, *GetStatusRequest) (*GetStatusReply, error)
 	GetUser(context.Context, *GetUserRequest) (*GetUserReply, error)
 	GetUserByUsername(context.Context, *GetUserByUsernameRequest) (*GetUserByUsernameReply, error)
@@ -60,7 +58,6 @@ func RegisterUserHTTPServer(s *http.Server, srv UserHTTPServer) {
 	r.POST("/api/v1/user/get/username", _User_GetUserByUsername0_HTTP_Handler(srv))
 	r.POST("/api/v1/status/get", _User_GetStatus0_HTTP_Handler(srv))
 	r.POST("/api/v1/user/distribute", _User_DistributeGroup0_HTTP_Handler(srv))
-	r.POST("/api/v1/user/group/get", _User_GetGroups0_HTTP_Handler(srv))
 }
 
 func _User_CreateUser0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
@@ -272,31 +269,11 @@ func _User_DistributeGroup0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Conte
 	}
 }
 
-func _User_GetGroups0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
-	return func(ctx http.Context) error {
-		var in GetGroupsRequest
-		if err := ctx.Bind(&in); err != nil {
-			return err
-		}
-		http.SetOperation(ctx, OperationUserGetGroups)
-		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetGroups(ctx, req.(*GetGroupsRequest))
-		})
-		out, err := h(ctx, &in)
-		if err != nil {
-			return err
-		}
-		reply := out.(*GetGroupsReply)
-		return ctx.Result(200, reply)
-	}
-}
-
 type UserHTTPClient interface {
 	CreateUser(ctx context.Context, req *CreateUserRequest, opts ...http.CallOption) (rsp *CreateUserReply, err error)
 	DeleteUser(ctx context.Context, req *DeleteUserRequest, opts ...http.CallOption) (rsp *DeleteUserReply, err error)
 	DistributeGroup(ctx context.Context, req *DistributeGroupRequest, opts ...http.CallOption) (rsp *DistributeGroupReply, err error)
 	GetDeletedUser(ctx context.Context, req *GetDeletedUserRequest, opts ...http.CallOption) (rsp *GetDeletedUserReply, err error)
-	GetGroups(ctx context.Context, req *GetGroupsRequest, opts ...http.CallOption) (rsp *GetGroupsReply, err error)
 	GetStatus(ctx context.Context, req *GetStatusRequest, opts ...http.CallOption) (rsp *GetStatusReply, err error)
 	GetUser(ctx context.Context, req *GetUserRequest, opts ...http.CallOption) (rsp *GetUserReply, err error)
 	GetUserByUsername(ctx context.Context, req *GetUserByUsernameRequest, opts ...http.CallOption) (rsp *GetUserByUsernameReply, err error)
@@ -358,19 +335,6 @@ func (c *UserHTTPClientImpl) GetDeletedUser(ctx context.Context, in *GetDeletedU
 	pattern := "/api/v1/user/deleted/get"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationUserGetDeletedUser))
-	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &out, err
-}
-
-func (c *UserHTTPClientImpl) GetGroups(ctx context.Context, in *GetGroupsRequest, opts ...http.CallOption) (*GetGroupsReply, error) {
-	var out GetGroupsReply
-	pattern := "/api/v1/user/group/get"
-	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationUserGetGroups))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

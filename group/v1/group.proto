@@ -35,12 +35,6 @@ service Group {
 			get: "/api/v1/group/list"
 		};
 	}
-	rpc GetUsers (GetUsersRequest) returns (GetUsersReply) {
-		option (google.api.http) = {
-			post: "/api/v1/group/user/get"
-			body: "*"
-		};
-	}
 }
 
 message CreateGroupRequest {
@@ -92,20 +86,15 @@ message ListGroupReply {
 		uint32 total = 3;
 	}
 	message Group {
+		message User {
+			uint32 id = 1;
+			string name = 2;
+		}
 		uint32 id = 1;
 		string name = 2;
+		uint32 total = 3;
+		repeated User users = 4;
 	}
 	Paging paging = 1;
 	repeated Group groups = 2;
-}
-
-message GetUsersRequest {
-	uint32 group = 1;
-}
-message GetUsersReply {
-	message User {
-		uint32 id = 1;
-		string name = 2;
-	}
-	repeated User users = 1;
 }
