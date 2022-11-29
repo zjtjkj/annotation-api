@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+package api.project.v1;
+import "google/api/annotations.proto";
+
+option go_package = "project/api/project/v1;v1";
+
+service Project {
+	rpc CreateProject (CreateProjectRequest) returns (CreateProjectReply) {
+		option (google.api.http) = {
+			post: "/api/v1/project/create",
+			body: "*"
+		};
+	}
+	rpc UpdateProject (UpdateProjectRequest) returns (UpdateProjectReply) {
+		option (google.api.http) = {
+			post: "/api/v1/project/update",
+			body: "*"
+		};
+	}
+	rpc DeleteProject (DeleteProjectRequest) returns (DeleteProjectReply) {
+		option (google.api.http) = {
+			post: "/api/v1/project/delete",
+			body: "*"
+		};
+	}
+	rpc GetProject (GetProjectRequest) returns (GetProjectReply) {
+		option (google.api.http) = {
+			post: "/api/v1/project/get",
+			body: "*"
+		};
+	}
+	rpc ListProject (ListProjectRequest) returns (ListProjectReply) {
+		option (google.api.http) = {
+			post: "/api/v1/project/list",
+			body: "*"
+		};
+	}
+}
+
+enum State {
+	Running = 0;
+	Completed = 1;
+}
+
+message CreateProjectRequest {
+	message Project {
+		string name = 1;
+		uint32 created_user = 2;
+	}
+	Project project = 1;
+}
+message CreateProjectReply {}
+
+message UpdateProjectRequest {
+	message Project {
+		uint32 id = 1;
+		string name = 2;
+	}
+	Project project = 1;
+}
+message UpdateProjectReply {}
+
+message DeleteProjectRequest {
+	uint32 id = 1;
+}
+message DeleteProjectReply {}
+
+message GetProjectRequest {
+	uint32 id = 1;
+}
+message GetProjectReply {
+	message Project {
+		uint32 id = 1;
+		string name = 2;
+		uint32 remaining_tasks = 3;
+		uint32 remaining_reviews = 4;
+		uint32 remaining_modification = 5;
+		State state = 6;
+	}
+	Project project = 1;
+}
+
+message ListProjectRequest {
+	message Paging {
+		uint32 index = 1;
+		uint32 size = 2;
+	}
+	Paging paging = 1;
+}
+message ListProjectReply {
+	message Paging {
+		uint32 index = 1;
+		uint32 size = 2;
+		uint32 page = 3;
+		uint32 total = 4;
+	}
+	message Project {
+		uint32 id = 1;
+		string name = 2;
+		uint32 remaining_tasks = 3;
+		uint32 remaining_reviews = 4;
+		uint32 remaining_modification = 5;
+		State state = 6;
+	}
+	Paging paging = 1;
+	repeated Project projects = 2;
+}
