@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-http v2.5.3
 // - protoc             v3.20.0
-// source: api/project/v1/project.proto
+// source: project/v1/project.proto
 
 package v1
 

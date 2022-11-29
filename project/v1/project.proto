@@ -73,10 +73,11 @@ message GetProjectReply {
 	message Project {
 		uint32 id = 1;
 		string name = 2;
-		uint32 remaining_tasks = 3;
-		uint32 remaining_reviews = 4;
-		uint32 remaining_modification = 5;
-		State state = 6;
+		float pass_rate = 3;
+		uint32 remaining_tasks = 4;
+		uint32 remaining_reviews = 5;
+		uint32 remaining_modification = 6;
+		State state = 7;
 	}
 	Project project = 1;
 }
@@ -103,10 +104,11 @@ message ListProjectReply {
 	message Project {
 		uint32 id = 1;
 		string name = 2;
-		uint32 remaining_tasks = 3;
-		uint32 remaining_reviews = 4;
-		uint32 remaining_modification = 5;
-		State state = 6;
+		float pass_rate = 3;
+		uint32 remaining_tasks = 4;
+		uint32 remaining_reviews = 5;
+		uint32 remaining_modification = 6;
+		State state = 7;
 	}
 	Paging paging = 1;
 	repeated Project projects = 2;
