@@ -421,7 +421,8 @@ type ListProjectRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Paging *ListProjectRequest_Paging `protobuf:"bytes,1,opt,name=paging,proto3" json:"paging,omitempty"`
+	Paging    *ListProjectRequest_Paging    `protobuf:"bytes,1,opt,name=paging,proto3" json:"paging,omitempty"`
+	Condition *ListProjectRequest_Condition `protobuf:"bytes,2,opt,name=condition,proto3" json:"condition,omitempty"`
 }
 
 func (x *ListProjectRequest) Reset() {
@@ -459,6 +460,13 @@ func (*ListProjectRequest) Descriptor() ([]byte, []int) {
 func (x *ListProjectRequest) GetPaging() *ListProjectRequest_Paging {
 	if x != nil {
 		return x.Paging
+	}
+	return nil
+}
+
+func (x *ListProjectRequest) GetCondition() *ListProjectRequest_Condition {
+	if x != nil {
+		return x.Condition
 	}
 	return nil
 }
@@ -770,6 +778,61 @@ func (x *ListProjectRequest_Paging) GetSize() uint32 {
 	return 0
 }
 
+type ListProjectRequest_Condition struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Keyword string  `protobuf:"bytes,1,opt,name=keyword,proto3" json:"keyword,omitempty"`
+	State   []State `protobuf:"varint,2,rep,packed,name=state,proto3,enum=api.project.v1.State" json:"state,omitempty"`
+}
+
+func (x *ListProjectRequest_Condition) Reset() {
+	*x = ListProjectRequest_Condition{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_project_v1_project_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListProjectRequest_Condition) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListProjectRequest_Condition) ProtoMessage() {}
+
+func (x *ListProjectRequest_Condition) ProtoReflect() protoreflect.Message {
+	mi := &file_api_project_v1_project_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListProjectRequest_Condition.ProtoReflect.Descriptor instead.
+func (*ListProjectRequest_Condition) Descriptor() ([]byte, []int) {
+	return file_api_project_v1_project_proto_rawDescGZIP(), []int{8, 1}
+}
+
+func (x *ListProjectRequest_Condition) GetKeyword() string {
+	if x != nil {
+		return x.Keyword
+	}
+	return ""
+}
+
+func (x *ListProjectRequest_Condition) GetState() []State {
+	if x != nil {
+		return x.State
+	}
+	return nil
+}
+
 type ListProjectReply_Paging struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -784,7 +847,7 @@ type ListProjectReply_Paging struct {
 func (x *ListProjectReply_Paging) Reset() {
 	*x = ListProjectReply_Paging{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_project_v1_project_proto_msgTypes[14]
+		mi := &file_api_project_v1_project_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -797,7 +860,7 @@ func (x *ListProjectReply_Paging) String() string {
 func (*ListProjectReply_Paging) ProtoMessage() {}
 
 func (x *ListProjectReply_Paging) ProtoReflect() protoreflect.Message {
-	mi := &file_api_project_v1_project_proto_msgTypes[14]
+	mi := &file_api_project_v1_project_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -857,7 +920,7 @@ type ListProjectReply_Project struct {
 func (x *ListProjectReply_Project) Reset() {
 	*x = ListProjectReply_Project{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_project_v1_project_proto_msgTypes[15]
+		mi := &file_api_project_v1_project_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -870,7 +933,7 @@ func (x *ListProjectReply_Project) String() string {
 func (*ListProjectReply_Project) ProtoMessage() {}
 
 func (x *ListProjectReply_Project) ProtoReflect() protoreflect.Message {
-	mi := &file_api_project_v1_project_proto_msgTypes[15]
+	mi := &file_api_project_v1_project_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -984,15 +1047,25 @@ var file_api_project_v1_project_proto_rawDesc = []byte{
 	0x6f, 0x6e, 0x12, 0x2b, 0x0a, 0x05, 0x73, 0x74, 0x61, 0x74, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28,
 	0x0e, 0x32, 0x15, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2e,
 	0x76, 0x31, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x05, 0x73, 0x74, 0x61, 0x74, 0x65, 0x22,
-	0x8b, 0x01, 0x0a, 0x12, 0x4c, 0x69, 0x73, 0x74, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x52,
+	0xab, 0x02, 0x0a, 0x12, 0x4c, 0x69, 0x73, 0x74, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x52,
 	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x41, 0x0a, 0x06, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x67,
 	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x29, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x70, 0x72, 0x6f,
 	0x6a, 0x65, 0x63, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x50, 0x72, 0x6f, 0x6a,
 	0x65, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e,
-	0x67, 0x52, 0x06, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x67, 0x1a, 0x32, 0x0a, 0x06, 0x50, 0x61, 0x67,
-	0x69, 0x6e, 0x67, 0x12, 0x14, 0x0a, 0x05, 0x69, 0x6e, 0x64, 0x65, 0x78, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x0d, 0x52, 0x05, 0x69, 0x6e, 0x64, 0x65, 0x78, 0x12, 0x12, 0x0a, 0x04, 0x73, 0x69, 0x7a,
-	0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x04, 0x73, 0x69, 0x7a, 0x65, 0x22, 0xe1, 0x03,
+	0x67, 0x52, 0x06, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x67, 0x12, 0x4a, 0x0a, 0x09, 0x63, 0x6f, 0x6e,
+	0x64, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2c, 0x2e, 0x61,
+	0x70, 0x69, 0x2e, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4c, 0x69,
+	0x73, 0x74, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x2e, 0x43, 0x6f, 0x6e, 0x64, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x09, 0x63, 0x6f, 0x6e, 0x64,
+	0x69, 0x74, 0x69, 0x6f, 0x6e, 0x1a, 0x32, 0x0a, 0x06, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x67, 0x12,
+	0x14, 0x0a, 0x05, 0x69, 0x6e, 0x64, 0x65, 0x78, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x05,
+	0x69, 0x6e, 0x64, 0x65, 0x78, 0x12, 0x12, 0x0a, 0x04, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0d, 0x52, 0x04, 0x73, 0x69, 0x7a, 0x65, 0x1a, 0x52, 0x0a, 0x09, 0x43, 0x6f, 0x6e,
+	0x64, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x18, 0x0a, 0x07, 0x6b, 0x65, 0x79, 0x77, 0x6f, 0x72,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64,
+	0x12, 0x2b, 0x0a, 0x05, 0x73, 0x74, 0x61, 0x74, 0x65, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0e, 0x32,
+	0x15, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2e, 0x76, 0x31,
+	0x2e, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x05, 0x73, 0x74, 0x61, 0x74, 0x65, 0x22, 0xe1, 0x03,
 	0x0a, 0x10, 0x4c, 0x69, 0x73, 0x74, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x70,
 	0x6c, 0x79, 0x12, 0x3f, 0x0a, 0x06, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x67, 0x18, 0x01, 0x20, 0x01,
 	0x28, 0x0b, 0x32, 0x27, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74,
@@ -1082,7 +1155,7 @@ func file_api_project_v1_project_proto_rawDescGZIP() []byte {
 }
 
 var file_api_project_v1_project_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_api_project_v1_project_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_api_project_v1_project_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
 var file_api_project_v1_project_proto_goTypes = []interface{}{
 	(State)(0),                           // 0: api.project.v1.State
 	(*CreateProjectRequest)(nil),         // 1: api.project.v1.CreateProjectRequest
@@ -1099,33 +1172,36 @@ var file_api_project_v1_project_proto_goTypes = []interface{}{
 	(*UpdateProjectRequest_Project)(nil), // 12: api.project.v1.UpdateProjectRequest.Project
 	(*GetProjectReply_Project)(nil),      // 13: api.project.v1.GetProjectReply.Project
 	(*ListProjectRequest_Paging)(nil),    // 14: api.project.v1.ListProjectRequest.Paging
-	(*ListProjectReply_Paging)(nil),      // 15: api.project.v1.ListProjectReply.Paging
-	(*ListProjectReply_Project)(nil),     // 16: api.project.v1.ListProjectReply.Project
+	(*ListProjectRequest_Condition)(nil), // 15: api.project.v1.ListProjectRequest.Condition
+	(*ListProjectReply_Paging)(nil),      // 16: api.project.v1.ListProjectReply.Paging
+	(*ListProjectReply_Project)(nil),     // 17: api.project.v1.ListProjectReply.Project
 }
 var file_api_project_v1_project_proto_depIdxs = []int32{
 	11, // 0: api.project.v1.CreateProjectRequest.project:type_name -> api.project.v1.CreateProjectRequest.Project
 	12, // 1: api.project.v1.UpdateProjectRequest.project:type_name -> api.project.v1.UpdateProjectRequest.Project
 	13, // 2: api.project.v1.GetProjectReply.project:type_name -> api.project.v1.GetProjectReply.Project
 	14, // 3: api.project.v1.ListProjectRequest.paging:type_name -> api.project.v1.ListProjectRequest.Paging
-	15, // 4: api.project.v1.ListProjectReply.paging:type_name -> api.project.v1.ListProjectReply.Paging
-	16, // 5: api.project.v1.ListProjectReply.projects:type_name -> api.project.v1.ListProjectReply.Project
-	0,  // 6: api.project.v1.GetProjectReply.Project.state:type_name -> api.project.v1.State
-	0,  // 7: api.project.v1.ListProjectReply.Project.state:type_name -> api.project.v1.State
-	1,  // 8: api.project.v1.Project.CreateProject:input_type -> api.project.v1.CreateProjectRequest
-	3,  // 9: api.project.v1.Project.UpdateProject:input_type -> api.project.v1.UpdateProjectRequest
-	5,  // 10: api.project.v1.Project.DeleteProject:input_type -> api.project.v1.DeleteProjectRequest
-	7,  // 11: api.project.v1.Project.GetProject:input_type -> api.project.v1.GetProjectRequest
-	9,  // 12: api.project.v1.Project.ListProject:input_type -> api.project.v1.ListProjectRequest
-	2,  // 13: api.project.v1.Project.CreateProject:output_type -> api.project.v1.CreateProjectReply
-	4,  // 14: api.project.v1.Project.UpdateProject:output_type -> api.project.v1.UpdateProjectReply
-	6,  // 15: api.project.v1.Project.DeleteProject:output_type -> api.project.v1.DeleteProjectReply
-	8,  // 16: api.project.v1.Project.GetProject:output_type -> api.project.v1.GetProjectReply
-	10, // 17: api.project.v1.Project.ListProject:output_type -> api.project.v1.ListProjectReply
-	13, // [13:18] is the sub-list for method output_type
-	8,  // [8:13] is the sub-list for method input_type
-	8,  // [8:8] is the sub-list for extension type_name
-	8,  // [8:8] is the sub-list for extension extendee
-	0,  // [0:8] is the sub-list for field type_name
+	15, // 4: api.project.v1.ListProjectRequest.condition:type_name -> api.project.v1.ListProjectRequest.Condition
+	16, // 5: api.project.v1.ListProjectReply.paging:type_name -> api.project.v1.ListProjectReply.Paging
+	17, // 6: api.project.v1.ListProjectReply.projects:type_name -> api.project.v1.ListProjectReply.Project
+	0,  // 7: api.project.v1.GetProjectReply.Project.state:type_name -> api.project.v1.State
+	0,  // 8: api.project.v1.ListProjectRequest.Condition.state:type_name -> api.project.v1.State
+	0,  // 9: api.project.v1.ListProjectReply.Project.state:type_name -> api.project.v1.State
+	1,  // 10: api.project.v1.Project.CreateProject:input_type -> api.project.v1.CreateProjectRequest
+	3,  // 11: api.project.v1.Project.UpdateProject:input_type -> api.project.v1.UpdateProjectRequest
+	5,  // 12: api.project.v1.Project.DeleteProject:input_type -> api.project.v1.DeleteProjectRequest
+	7,  // 13: api.project.v1.Project.GetProject:input_type -> api.project.v1.GetProjectRequest
+	9,  // 14: api.project.v1.Project.ListProject:input_type -> api.project.v1.ListProjectRequest
+	2,  // 15: api.project.v1.Project.CreateProject:output_type -> api.project.v1.CreateProjectReply
+	4,  // 16: api.project.v1.Project.UpdateProject:output_type -> api.project.v1.UpdateProjectReply
+	6,  // 17: api.project.v1.Project.DeleteProject:output_type -> api.project.v1.DeleteProjectReply
+	8,  // 18: api.project.v1.Project.GetProject:output_type -> api.project.v1.GetProjectReply
+	10, // 19: api.project.v1.Project.ListProject:output_type -> api.project.v1.ListProjectReply
+	15, // [15:20] is the sub-list for method output_type
+	10, // [10:15] is the sub-list for method input_type
+	10, // [10:10] is the sub-list for extension type_name
+	10, // [10:10] is the sub-list for extension extendee
+	0,  // [0:10] is the sub-list for field type_name
 }
 
 func init() { file_api_project_v1_project_proto_init() }
@@ -1303,7 +1379,7 @@ func file_api_project_v1_project_proto_init() {
 			}
 		}
 		file_api_project_v1_project_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListProjectReply_Paging); i {
+			switch v := v.(*ListProjectRequest_Condition); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1315,6 +1391,18 @@ func file_api_project_v1_project_proto_init() {
 			}
 		}
 		file_api_project_v1_project_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ListProjectReply_Paging); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_project_v1_project_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListProjectReply_Project); i {
 			case 0:
 				return &v.state
@@ -1333,7 +1421,7 @@ func file_api_project_v1_project_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_api_project_v1_project_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   16,
+			NumMessages:   17,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

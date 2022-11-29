@@ -86,7 +86,12 @@ message ListProjectRequest {
 		uint32 index = 1;
 		uint32 size = 2;
 	}
+	message Condition {
+		string keyword = 1;
+		repeated State state = 2;
+	}
 	Paging paging = 1;
+	Condition condition = 2;
 }
 message ListProjectReply {
 	message Paging {
