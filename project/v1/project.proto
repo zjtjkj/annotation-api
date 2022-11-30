@@ -49,6 +49,8 @@ message CreateProjectRequest {
 		uint32 created_user = 2;
 	}
 	Project project = 1;
+	repeated uint32 users = 2;
+	repeated uint32 tags = 3;
 }
 message CreateProjectReply {}
 
