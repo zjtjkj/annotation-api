@@ -36,6 +36,18 @@ service Project {
 			body: "*"
 		};
 	}
+	rpc DeleteProjectUser(DeleteProjectUserRequest) returns (DeleteProjectUserReply) {
+		option (google.api.http) = {
+			post: "/api/v1/project/user/delete",
+			body: "*"
+		};
+	}
+	rpc DeleteProjectTag(DeleteProjectTagRequest) returns (DeleteProjectTagReply) {
+		option (google.api.http) = {
+			post: "/api/v1/project/tag/delete",
+			body: "*"
+		};
+	}
 }
 
 enum State {
@@ -115,3 +127,13 @@ message ListProjectReply {
 	Paging paging = 1;
 	repeated Project projects = 2;
 }
+
+message DeleteProjectUserRequest {
+	uint32 user_id = 1;
+}
+message DeleteProjectUserReply {}
+
+message DeleteProjectTagRequest {
+	uint32 tag_id = 1;
+}
+message DeleteProjectTagReply {}

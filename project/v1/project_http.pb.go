@@ -21,6 +21,8 @@ const _ = http.SupportPackageIsVersion1
 
 const OperationProjectCreateProject = "/api.project.v1.Project/CreateProject"
 const OperationProjectDeleteProject = "/api.project.v1.Project/DeleteProject"
+const OperationProjectDeleteProjectTag = "/api.project.v1.Project/DeleteProjectTag"
+const OperationProjectDeleteProjectUser = "/api.project.v1.Project/DeleteProjectUser"
 const OperationProjectGetProject = "/api.project.v1.Project/GetProject"
 const OperationProjectListProject = "/api.project.v1.Project/ListProject"
 const OperationProjectUpdateProject = "/api.project.v1.Project/UpdateProject"
@@ -28,6 +30,8 @@ const OperationProjectUpdateProject = "/api.project.v1.Project/UpdateProject"
 type ProjectHTTPServer interface {
 	CreateProject(context.Context, *CreateProjectRequest) (*CreateProjectReply, error)
 	DeleteProject(context.Context, *DeleteProjectRequest) (*DeleteProjectReply, error)
+	DeleteProjectTag(context.Context, *DeleteProjectTagRequest) (*DeleteProjectTagReply, error)
+	DeleteProjectUser(context.Context, *DeleteProjectUserRequest) (*DeleteProjectUserReply, error)
 	GetProject(context.Context, *GetProjectRequest) (*GetProjectReply, error)
 	ListProject(context.Context, *ListProjectRequest) (*ListProjectReply, error)
 	UpdateProject(context.Context, *UpdateProjectRequest) (*UpdateProjectReply, error)
@@ -40,6 +44,8 @@ func RegisterProjectHTTPServer(s *http.Server, srv ProjectHTTPServer) {
 	r.POST("/api/v1/project/delete", _Project_DeleteProject0_HTTP_Handler(srv))
 	r.POST("/api/v1/project/get", _Project_GetProject0_HTTP_Handler(srv))
 	r.POST("/api/v1/project/list", _Project_ListProject0_HTTP_Handler(srv))
+	r.POST("/api/v1/project/user/delete", _Project_DeleteProjectUser0_HTTP_Handler(srv))
+	r.POST("/api/v1/project/tag/delete", _Project_DeleteProjectTag0_HTTP_Handler(srv))
 }
 
 func _Project_CreateProject0_HTTP_Handler(srv ProjectHTTPServer) func(ctx http.Context) error {
@@ -137,9 +143,49 @@ func _Project_ListProject0_HTTP_Handler(srv ProjectHTTPServer) func(ctx http.Con
 	}
 }
 
+func _Project_DeleteProjectUser0_HTTP_Handler(srv ProjectHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DeleteProjectUserRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProjectDeleteProjectUser)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DeleteProjectUser(ctx, req.(*DeleteProjectUserRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*DeleteProjectUserReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Project_DeleteProjectTag0_HTTP_Handler(srv ProjectHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DeleteProjectTagRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProjectDeleteProjectTag)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DeleteProjectTag(ctx, req.(*DeleteProjectTagRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*DeleteProjectTagReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 type ProjectHTTPClient interface {
 	CreateProject(ctx context.Context, req *CreateProjectRequest, opts ...http.CallOption) (rsp *CreateProjectReply, err error)
 	DeleteProject(ctx context.Context, req *DeleteProjectRequest, opts ...http.CallOption) (rsp *DeleteProjectReply, err error)
+	DeleteProjectTag(ctx context.Context, req *DeleteProjectTagRequest, opts ...http.CallOption) (rsp *DeleteProjectTagReply, err error)
+	DeleteProjectUser(ctx context.Context, req *DeleteProjectUserRequest, opts ...http.CallOption) (rsp *DeleteProjectUserReply, err error)
 	GetProject(ctx context.Context, req *GetProjectRequest, opts ...http.CallOption) (rsp *GetProjectReply, err error)
 	ListProject(ctx context.Context, req *ListProjectRequest, opts ...http.CallOption) (rsp *ListProjectReply, err error)
 	UpdateProject(ctx context.Context, req *UpdateProjectRequest, opts ...http.CallOption) (rsp *UpdateProjectReply, err error)
@@ -171,6 +217,32 @@ func (c *ProjectHTTPClientImpl) DeleteProject(ctx context.Context, in *DeletePro
 	pattern := "/api/v1/project/delete"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationProjectDeleteProject))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProjectHTTPClientImpl) DeleteProjectTag(ctx context.Context, in *DeleteProjectTagRequest, opts ...http.CallOption) (*DeleteProjectTagReply, error) {
+	var out DeleteProjectTagReply
+	pattern := "/api/v1/project/tag/delete"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationProjectDeleteProjectTag))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProjectHTTPClientImpl) DeleteProjectUser(ctx context.Context, in *DeleteProjectUserRequest, opts ...http.CallOption) (*DeleteProjectUserReply, error) {
+	var out DeleteProjectUserReply
+	pattern := "/api/v1/project/user/delete"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationProjectDeleteProjectUser))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

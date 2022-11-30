@@ -27,6 +27,8 @@ type ProjectClient interface {
 	DeleteProject(ctx context.Context, in *DeleteProjectRequest, opts ...grpc.CallOption) (*DeleteProjectReply, error)
 	GetProject(ctx context.Context, in *GetProjectRequest, opts ...grpc.CallOption) (*GetProjectReply, error)
 	ListProject(ctx context.Context, in *ListProjectRequest, opts ...grpc.CallOption) (*ListProjectReply, error)
+	DeleteProjectUser(ctx context.Context, in *DeleteProjectUserRequest, opts ...grpc.CallOption) (*DeleteProjectUserReply, error)
+	DeleteProjectTag(ctx context.Context, in *DeleteProjectTagRequest, opts ...grpc.CallOption) (*DeleteProjectTagReply, error)
 }
 
 type projectClient struct {
@@ -82,6 +84,24 @@ func (c *projectClient) ListProject(ctx context.Context, in *ListProjectRequest,
 	return out, nil
 }
 
+func (c *projectClient) DeleteProjectUser(ctx context.Context, in *DeleteProjectUserRequest, opts ...grpc.CallOption) (*DeleteProjectUserReply, error) {
+	out := new(DeleteProjectUserReply)
+	err := c.cc.Invoke(ctx, "/api.project.v1.Project/DeleteProjectUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *projectClient) DeleteProjectTag(ctx context.Context, in *DeleteProjectTagRequest, opts ...grpc.CallOption) (*DeleteProjectTagReply, error) {
+	out := new(DeleteProjectTagReply)
+	err := c.cc.Invoke(ctx, "/api.project.v1.Project/DeleteProjectTag", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProjectServer is the server API for Project service.
 // All implementations must embed UnimplementedProjectServer
 // for forward compatibility
@@ -91,6 +111,8 @@ type ProjectServer interface {
 	DeleteProject(context.Context, *DeleteProjectRequest) (*DeleteProjectReply, error)
 	GetProject(context.Context, *GetProjectRequest) (*GetProjectReply, error)
 	ListProject(context.Context, *ListProjectRequest) (*ListProjectReply, error)
+	DeleteProjectUser(context.Context, *DeleteProjectUserRequest) (*DeleteProjectUserReply, error)
+	DeleteProjectTag(context.Context, *DeleteProjectTagRequest) (*DeleteProjectTagReply, error)
 	mustEmbedUnimplementedProjectServer()
 }
 
@@ -112,6 +134,12 @@ func (UnimplementedProjectServer) GetProject(context.Context, *GetProjectRequest
 }
 func (UnimplementedProjectServer) ListProject(context.Context, *ListProjectRequest) (*ListProjectReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListProject not implemented")
+}
+func (UnimplementedProjectServer) DeleteProjectUser(context.Context, *DeleteProjectUserRequest) (*DeleteProjectUserReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteProjectUser not implemented")
+}
+func (UnimplementedProjectServer) DeleteProjectTag(context.Context, *DeleteProjectTagRequest) (*DeleteProjectTagReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteProjectTag not implemented")
 }
 func (UnimplementedProjectServer) mustEmbedUnimplementedProjectServer() {}
 
@@ -216,6 +244,42 @@ func _Project_ListProject_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Project_DeleteProjectUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteProjectUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectServer).DeleteProjectUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.project.v1.Project/DeleteProjectUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectServer).DeleteProjectUser(ctx, req.(*DeleteProjectUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Project_DeleteProjectTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteProjectTagRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectServer).DeleteProjectTag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.project.v1.Project/DeleteProjectTag",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectServer).DeleteProjectTag(ctx, req.(*DeleteProjectTagRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Project_ServiceDesc is the grpc.ServiceDesc for Project service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -242,6 +306,14 @@ var Project_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListProject",
 			Handler:    _Project_ListProject_Handler,
+		},
+		{
+			MethodName: "DeleteProjectUser",
+			Handler:    _Project_DeleteProjectUser_Handler,
+		},
+		{
+			MethodName: "DeleteProjectTag",
+			Handler:    _Project_DeleteProjectTag_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
