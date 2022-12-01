@@ -797,6 +797,193 @@ func (x *GetProjectStateReply) GetState() []*GetProjectStateReply_State {
 	return nil
 }
 
+type GetProjectUserRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ProjectId uint32 `protobuf:"varint,1,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
+}
+
+func (x *GetProjectUserRequest) Reset() {
+	*x = GetProjectUserRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_project_v1_project_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetProjectUserRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetProjectUserRequest) ProtoMessage() {}
+
+func (x *GetProjectUserRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_project_v1_project_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetProjectUserRequest.ProtoReflect.Descriptor instead.
+func (*GetProjectUserRequest) Descriptor() ([]byte, []int) {
+	return file_project_v1_project_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *GetProjectUserRequest) GetProjectId() uint32 {
+	if x != nil {
+		return x.ProjectId
+	}
+	return 0
+}
+
+type GetProjectUserReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Users []uint32 `protobuf:"varint,1,rep,packed,name=users,proto3" json:"users,omitempty"`
+}
+
+func (x *GetProjectUserReply) Reset() {
+	*x = GetProjectUserReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_project_v1_project_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetProjectUserReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetProjectUserReply) ProtoMessage() {}
+
+func (x *GetProjectUserReply) ProtoReflect() protoreflect.Message {
+	mi := &file_project_v1_project_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetProjectUserReply.ProtoReflect.Descriptor instead.
+func (*GetProjectUserReply) Descriptor() ([]byte, []int) {
+	return file_project_v1_project_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *GetProjectUserReply) GetUsers() []uint32 {
+	if x != nil {
+		return x.Users
+	}
+	return nil
+}
+
+type UpdateProjectUserRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ProjectId uint32   `protobuf:"varint,1,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
+	Users     []uint32 `protobuf:"varint,2,rep,packed,name=users,proto3" json:"users,omitempty"`
+}
+
+func (x *UpdateProjectUserRequest) Reset() {
+	*x = UpdateProjectUserRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_project_v1_project_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateProjectUserRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateProjectUserRequest) ProtoMessage() {}
+
+func (x *UpdateProjectUserRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_project_v1_project_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateProjectUserRequest.ProtoReflect.Descriptor instead.
+func (*UpdateProjectUserRequest) Descriptor() ([]byte, []int) {
+	return file_project_v1_project_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *UpdateProjectUserRequest) GetProjectId() uint32 {
+	if x != nil {
+		return x.ProjectId
+	}
+	return 0
+}
+
+func (x *UpdateProjectUserRequest) GetUsers() []uint32 {
+	if x != nil {
+		return x.Users
+	}
+	return nil
+}
+
+type UpdateProjectUserReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *UpdateProjectUserReply) Reset() {
+	*x = UpdateProjectUserReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_project_v1_project_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateProjectUserReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateProjectUserReply) ProtoMessage() {}
+
+func (x *UpdateProjectUserReply) ProtoReflect() protoreflect.Message {
+	mi := &file_project_v1_project_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateProjectUserReply.ProtoReflect.Descriptor instead.
+func (*UpdateProjectUserReply) Descriptor() ([]byte, []int) {
+	return file_project_v1_project_proto_rawDescGZIP(), []int{19}
+}
+
 type CreateProjectRequest_Project struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -809,7 +996,7 @@ type CreateProjectRequest_Project struct {
 func (x *CreateProjectRequest_Project) Reset() {
 	*x = CreateProjectRequest_Project{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_project_v1_project_proto_msgTypes[16]
+		mi := &file_project_v1_project_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -822,7 +1009,7 @@ func (x *CreateProjectRequest_Project) String() string {
 func (*CreateProjectRequest_Project) ProtoMessage() {}
 
 func (x *CreateProjectRequest_Project) ProtoReflect() protoreflect.Message {
-	mi := &file_project_v1_project_proto_msgTypes[16]
+	mi := &file_project_v1_project_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -864,7 +1051,7 @@ type UpdateProjectRequest_Project struct {
 func (x *UpdateProjectRequest_Project) Reset() {
 	*x = UpdateProjectRequest_Project{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_project_v1_project_proto_msgTypes[17]
+		mi := &file_project_v1_project_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -877,7 +1064,7 @@ func (x *UpdateProjectRequest_Project) String() string {
 func (*UpdateProjectRequest_Project) ProtoMessage() {}
 
 func (x *UpdateProjectRequest_Project) ProtoReflect() protoreflect.Message {
-	mi := &file_project_v1_project_proto_msgTypes[17]
+	mi := &file_project_v1_project_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -924,7 +1111,7 @@ type GetProjectReply_Project struct {
 func (x *GetProjectReply_Project) Reset() {
 	*x = GetProjectReply_Project{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_project_v1_project_proto_msgTypes[18]
+		mi := &file_project_v1_project_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -937,7 +1124,7 @@ func (x *GetProjectReply_Project) String() string {
 func (*GetProjectReply_Project) ProtoMessage() {}
 
 func (x *GetProjectReply_Project) ProtoReflect() protoreflect.Message {
-	mi := &file_project_v1_project_proto_msgTypes[18]
+	mi := &file_project_v1_project_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1014,7 +1201,7 @@ type ListProjectRequest_Paging struct {
 func (x *ListProjectRequest_Paging) Reset() {
 	*x = ListProjectRequest_Paging{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_project_v1_project_proto_msgTypes[19]
+		mi := &file_project_v1_project_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1027,7 +1214,7 @@ func (x *ListProjectRequest_Paging) String() string {
 func (*ListProjectRequest_Paging) ProtoMessage() {}
 
 func (x *ListProjectRequest_Paging) ProtoReflect() protoreflect.Message {
-	mi := &file_project_v1_project_proto_msgTypes[19]
+	mi := &file_project_v1_project_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1069,7 +1256,7 @@ type ListProjectRequest_Condition struct {
 func (x *ListProjectRequest_Condition) Reset() {
 	*x = ListProjectRequest_Condition{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_project_v1_project_proto_msgTypes[20]
+		mi := &file_project_v1_project_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1082,7 +1269,7 @@ func (x *ListProjectRequest_Condition) String() string {
 func (*ListProjectRequest_Condition) ProtoMessage() {}
 
 func (x *ListProjectRequest_Condition) ProtoReflect() protoreflect.Message {
-	mi := &file_project_v1_project_proto_msgTypes[20]
+	mi := &file_project_v1_project_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1126,7 +1313,7 @@ type ListProjectReply_Paging struct {
 func (x *ListProjectReply_Paging) Reset() {
 	*x = ListProjectReply_Paging{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_project_v1_project_proto_msgTypes[21]
+		mi := &file_project_v1_project_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1139,7 +1326,7 @@ func (x *ListProjectReply_Paging) String() string {
 func (*ListProjectReply_Paging) ProtoMessage() {}
 
 func (x *ListProjectReply_Paging) ProtoReflect() protoreflect.Message {
-	mi := &file_project_v1_project_proto_msgTypes[21]
+	mi := &file_project_v1_project_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1200,7 +1387,7 @@ type ListProjectReply_Project struct {
 func (x *ListProjectReply_Project) Reset() {
 	*x = ListProjectReply_Project{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_project_v1_project_proto_msgTypes[22]
+		mi := &file_project_v1_project_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1213,7 +1400,7 @@ func (x *ListProjectReply_Project) String() string {
 func (*ListProjectReply_Project) ProtoMessage() {}
 
 func (x *ListProjectReply_Project) ProtoReflect() protoreflect.Message {
-	mi := &file_project_v1_project_proto_msgTypes[22]
+	mi := &file_project_v1_project_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1290,7 +1477,7 @@ type GetProjectStateReply_State struct {
 func (x *GetProjectStateReply_State) Reset() {
 	*x = GetProjectStateReply_State{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_project_v1_project_proto_msgTypes[23]
+		mi := &file_project_v1_project_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1303,7 +1490,7 @@ func (x *GetProjectStateReply_State) String() string {
 func (*GetProjectStateReply_State) ProtoMessage() {}
 
 func (x *GetProjectStateReply_State) ProtoReflect() protoreflect.Message {
-	mi := &file_project_v1_project_proto_msgTypes[23]
+	mi := &file_project_v1_project_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1463,10 +1650,23 @@ var file_project_v1_project_proto_rawDesc = []byte{
 	0x70, 0x6c, 0x79, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x05, 0x73, 0x74, 0x61, 0x74, 0x65,
 	0x1a, 0x2b, 0x0a, 0x05, 0x53, 0x74, 0x61, 0x74, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
 	0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d,
-	0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x2a, 0x23, 0x0a,
+	0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x36, 0x0a,
+	0x15, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1d, 0x0a, 0x0a, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63,
+	0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x09, 0x70, 0x72, 0x6f, 0x6a,
+	0x65, 0x63, 0x74, 0x49, 0x64, 0x22, 0x2b, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x6a,
+	0x65, 0x63, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x14, 0x0a, 0x05,
+	0x75, 0x73, 0x65, 0x72, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0d, 0x52, 0x05, 0x75, 0x73, 0x65,
+	0x72, 0x73, 0x22, 0x4f, 0x0a, 0x18, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x72, 0x6f, 0x6a,
+	0x65, 0x63, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1d,
+	0x0a, 0x0a, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x0d, 0x52, 0x09, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x49, 0x64, 0x12, 0x14, 0x0a,
+	0x05, 0x75, 0x73, 0x65, 0x72, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0d, 0x52, 0x05, 0x75, 0x73,
+	0x65, 0x72, 0x73, 0x22, 0x18, 0x0a, 0x16, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x72, 0x6f,
+	0x6a, 0x65, 0x63, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x2a, 0x23, 0x0a,
 	0x05, 0x53, 0x74, 0x61, 0x74, 0x65, 0x12, 0x0b, 0x0a, 0x07, 0x52, 0x75, 0x6e, 0x6e, 0x69, 0x6e,
 	0x67, 0x10, 0x00, 0x12, 0x0d, 0x0a, 0x09, 0x43, 0x6f, 0x6d, 0x70, 0x6c, 0x65, 0x74, 0x65, 0x64,
-	0x10, 0x01, 0x32, 0x8b, 0x08, 0x0a, 0x07, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x12, 0x7c,
+	0x10, 0x01, 0x32, 0x9f, 0x0a, 0x0a, 0x07, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x12, 0x7c,
 	0x0a, 0x0d, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x12,
 	0x24, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2e, 0x76, 0x31,
 	0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65,
@@ -1531,9 +1731,26 @@ var file_project_v1_project_proto_rawDesc = []byte{
 	0x6a, 0x65, 0x63, 0x74, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x20,
 	0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1a, 0x22, 0x15, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x31, 0x2f,
 	0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2f, 0x73, 0x74, 0x61, 0x74, 0x65, 0x3a, 0x01, 0x2a,
-	0x42, 0x1b, 0x5a, 0x19, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2f, 0x61, 0x70, 0x69, 0x2f,
-	0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x12, 0x81, 0x01, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x55,
+	0x73, 0x65, 0x72, 0x12, 0x25, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63,
+	0x74, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x55,
+	0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x23, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x50,
+	0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22,
+	0x23, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1d, 0x22, 0x18, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x31,
+	0x2f, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x2f, 0x67, 0x65,
+	0x74, 0x3a, 0x01, 0x2a, 0x12, 0x8d, 0x01, 0x0a, 0x11, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50,
+	0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x55, 0x73, 0x65, 0x72, 0x12, 0x28, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x70, 0x64, 0x61,
+	0x74, 0x65, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x26, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x70, 0x72, 0x6f, 0x6a, 0x65,
+	0x63, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x72, 0x6f, 0x6a,
+	0x65, 0x63, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x26, 0x82, 0xd3,
+	0xe4, 0x93, 0x02, 0x20, 0x22, 0x1b, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x31, 0x2f, 0x70, 0x72,
+	0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x2f, 0x75, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x3a, 0x01, 0x2a, 0x42, 0x1b, 0x5a, 0x19, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2f,
+	0x61, 0x70, 0x69, 0x2f, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2f, 0x76, 0x31, 0x3b, 0x76,
+	0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1549,7 +1766,7 @@ func file_project_v1_project_proto_rawDescGZIP() []byte {
 }
 
 var file_project_v1_project_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_project_v1_project_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
+var file_project_v1_project_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
 var file_project_v1_project_proto_goTypes = []interface{}{
 	(State)(0),                           // 0: api.project.v1.State
 	(*CreateProjectRequest)(nil),         // 1: api.project.v1.CreateProjectRequest
@@ -1568,24 +1785,28 @@ var file_project_v1_project_proto_goTypes = []interface{}{
 	(*DeleteProjectTagReply)(nil),        // 14: api.project.v1.DeleteProjectTagReply
 	(*GetProjectStateRequest)(nil),       // 15: api.project.v1.GetProjectStateRequest
 	(*GetProjectStateReply)(nil),         // 16: api.project.v1.GetProjectStateReply
-	(*CreateProjectRequest_Project)(nil), // 17: api.project.v1.CreateProjectRequest.Project
-	(*UpdateProjectRequest_Project)(nil), // 18: api.project.v1.UpdateProjectRequest.Project
-	(*GetProjectReply_Project)(nil),      // 19: api.project.v1.GetProjectReply.Project
-	(*ListProjectRequest_Paging)(nil),    // 20: api.project.v1.ListProjectRequest.Paging
-	(*ListProjectRequest_Condition)(nil), // 21: api.project.v1.ListProjectRequest.Condition
-	(*ListProjectReply_Paging)(nil),      // 22: api.project.v1.ListProjectReply.Paging
-	(*ListProjectReply_Project)(nil),     // 23: api.project.v1.ListProjectReply.Project
-	(*GetProjectStateReply_State)(nil),   // 24: api.project.v1.GetProjectStateReply.State
+	(*GetProjectUserRequest)(nil),        // 17: api.project.v1.GetProjectUserRequest
+	(*GetProjectUserReply)(nil),          // 18: api.project.v1.GetProjectUserReply
+	(*UpdateProjectUserRequest)(nil),     // 19: api.project.v1.UpdateProjectUserRequest
+	(*UpdateProjectUserReply)(nil),       // 20: api.project.v1.UpdateProjectUserReply
+	(*CreateProjectRequest_Project)(nil), // 21: api.project.v1.CreateProjectRequest.Project
+	(*UpdateProjectRequest_Project)(nil), // 22: api.project.v1.UpdateProjectRequest.Project
+	(*GetProjectReply_Project)(nil),      // 23: api.project.v1.GetProjectReply.Project
+	(*ListProjectRequest_Paging)(nil),    // 24: api.project.v1.ListProjectRequest.Paging
+	(*ListProjectRequest_Condition)(nil), // 25: api.project.v1.ListProjectRequest.Condition
+	(*ListProjectReply_Paging)(nil),      // 26: api.project.v1.ListProjectReply.Paging
+	(*ListProjectReply_Project)(nil),     // 27: api.project.v1.ListProjectReply.Project
+	(*GetProjectStateReply_State)(nil),   // 28: api.project.v1.GetProjectStateReply.State
 }
 var file_project_v1_project_proto_depIdxs = []int32{
-	17, // 0: api.project.v1.CreateProjectRequest.project:type_name -> api.project.v1.CreateProjectRequest.Project
-	18, // 1: api.project.v1.UpdateProjectRequest.project:type_name -> api.project.v1.UpdateProjectRequest.Project
-	19, // 2: api.project.v1.GetProjectReply.project:type_name -> api.project.v1.GetProjectReply.Project
-	20, // 3: api.project.v1.ListProjectRequest.paging:type_name -> api.project.v1.ListProjectRequest.Paging
-	21, // 4: api.project.v1.ListProjectRequest.condition:type_name -> api.project.v1.ListProjectRequest.Condition
-	22, // 5: api.project.v1.ListProjectReply.paging:type_name -> api.project.v1.ListProjectReply.Paging
-	23, // 6: api.project.v1.ListProjectReply.projects:type_name -> api.project.v1.ListProjectReply.Project
-	24, // 7: api.project.v1.GetProjectStateReply.state:type_name -> api.project.v1.GetProjectStateReply.State
+	21, // 0: api.project.v1.CreateProjectRequest.project:type_name -> api.project.v1.CreateProjectRequest.Project
+	22, // 1: api.project.v1.UpdateProjectRequest.project:type_name -> api.project.v1.UpdateProjectRequest.Project
+	23, // 2: api.project.v1.GetProjectReply.project:type_name -> api.project.v1.GetProjectReply.Project
+	24, // 3: api.project.v1.ListProjectRequest.paging:type_name -> api.project.v1.ListProjectRequest.Paging
+	25, // 4: api.project.v1.ListProjectRequest.condition:type_name -> api.project.v1.ListProjectRequest.Condition
+	26, // 5: api.project.v1.ListProjectReply.paging:type_name -> api.project.v1.ListProjectReply.Paging
+	27, // 6: api.project.v1.ListProjectReply.projects:type_name -> api.project.v1.ListProjectReply.Project
+	28, // 7: api.project.v1.GetProjectStateReply.state:type_name -> api.project.v1.GetProjectStateReply.State
 	0,  // 8: api.project.v1.GetProjectReply.Project.state:type_name -> api.project.v1.State
 	0,  // 9: api.project.v1.ListProjectRequest.Condition.state:type_name -> api.project.v1.State
 	0,  // 10: api.project.v1.ListProjectReply.Project.state:type_name -> api.project.v1.State
@@ -1597,16 +1818,20 @@ var file_project_v1_project_proto_depIdxs = []int32{
 	11, // 16: api.project.v1.Project.DeleteProjectUser:input_type -> api.project.v1.DeleteProjectUserRequest
 	13, // 17: api.project.v1.Project.DeleteProjectTag:input_type -> api.project.v1.DeleteProjectTagRequest
 	15, // 18: api.project.v1.Project.GetProjectState:input_type -> api.project.v1.GetProjectStateRequest
-	2,  // 19: api.project.v1.Project.CreateProject:output_type -> api.project.v1.CreateProjectReply
-	4,  // 20: api.project.v1.Project.UpdateProject:output_type -> api.project.v1.UpdateProjectReply
-	6,  // 21: api.project.v1.Project.DeleteProject:output_type -> api.project.v1.DeleteProjectReply
-	8,  // 22: api.project.v1.Project.GetProject:output_type -> api.project.v1.GetProjectReply
-	10, // 23: api.project.v1.Project.ListProject:output_type -> api.project.v1.ListProjectReply
-	12, // 24: api.project.v1.Project.DeleteProjectUser:output_type -> api.project.v1.DeleteProjectUserReply
-	14, // 25: api.project.v1.Project.DeleteProjectTag:output_type -> api.project.v1.DeleteProjectTagReply
-	16, // 26: api.project.v1.Project.GetProjectState:output_type -> api.project.v1.GetProjectStateReply
-	19, // [19:27] is the sub-list for method output_type
-	11, // [11:19] is the sub-list for method input_type
+	17, // 19: api.project.v1.Project.GetProjectUser:input_type -> api.project.v1.GetProjectUserRequest
+	19, // 20: api.project.v1.Project.UpdateProjectUser:input_type -> api.project.v1.UpdateProjectUserRequest
+	2,  // 21: api.project.v1.Project.CreateProject:output_type -> api.project.v1.CreateProjectReply
+	4,  // 22: api.project.v1.Project.UpdateProject:output_type -> api.project.v1.UpdateProjectReply
+	6,  // 23: api.project.v1.Project.DeleteProject:output_type -> api.project.v1.DeleteProjectReply
+	8,  // 24: api.project.v1.Project.GetProject:output_type -> api.project.v1.GetProjectReply
+	10, // 25: api.project.v1.Project.ListProject:output_type -> api.project.v1.ListProjectReply
+	12, // 26: api.project.v1.Project.DeleteProjectUser:output_type -> api.project.v1.DeleteProjectUserReply
+	14, // 27: api.project.v1.Project.DeleteProjectTag:output_type -> api.project.v1.DeleteProjectTagReply
+	16, // 28: api.project.v1.Project.GetProjectState:output_type -> api.project.v1.GetProjectStateReply
+	18, // 29: api.project.v1.Project.GetProjectUser:output_type -> api.project.v1.GetProjectUserReply
+	20, // 30: api.project.v1.Project.UpdateProjectUser:output_type -> api.project.v1.UpdateProjectUserReply
+	21, // [21:31] is the sub-list for method output_type
+	11, // [11:21] is the sub-list for method input_type
 	11, // [11:11] is the sub-list for extension type_name
 	11, // [11:11] is the sub-list for extension extendee
 	0,  // [0:11] is the sub-list for field type_name
@@ -1811,7 +2036,7 @@ func file_project_v1_project_proto_init() {
 			}
 		}
 		file_project_v1_project_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateProjectRequest_Project); i {
+			switch v := v.(*GetProjectUserRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1823,7 +2048,7 @@ func file_project_v1_project_proto_init() {
 			}
 		}
 		file_project_v1_project_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateProjectRequest_Project); i {
+			switch v := v.(*GetProjectUserReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1835,7 +2060,7 @@ func file_project_v1_project_proto_init() {
 			}
 		}
 		file_project_v1_project_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetProjectReply_Project); i {
+			switch v := v.(*UpdateProjectUserRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1847,7 +2072,7 @@ func file_project_v1_project_proto_init() {
 			}
 		}
 		file_project_v1_project_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListProjectRequest_Paging); i {
+			switch v := v.(*UpdateProjectUserReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1859,7 +2084,7 @@ func file_project_v1_project_proto_init() {
 			}
 		}
 		file_project_v1_project_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListProjectRequest_Condition); i {
+			switch v := v.(*CreateProjectRequest_Project); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1871,7 +2096,7 @@ func file_project_v1_project_proto_init() {
 			}
 		}
 		file_project_v1_project_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListProjectReply_Paging); i {
+			switch v := v.(*UpdateProjectRequest_Project); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1883,7 +2108,7 @@ func file_project_v1_project_proto_init() {
 			}
 		}
 		file_project_v1_project_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListProjectReply_Project); i {
+			switch v := v.(*GetProjectReply_Project); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1895,6 +2120,54 @@ func file_project_v1_project_proto_init() {
 			}
 		}
 		file_project_v1_project_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ListProjectRequest_Paging); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_project_v1_project_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ListProjectRequest_Condition); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_project_v1_project_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ListProjectReply_Paging); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_project_v1_project_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ListProjectReply_Project); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_project_v1_project_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetProjectStateReply_State); i {
 			case 0:
 				return &v.state
@@ -1913,7 +2186,7 @@ func file_project_v1_project_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_project_v1_project_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   24,
+			NumMessages:   28,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

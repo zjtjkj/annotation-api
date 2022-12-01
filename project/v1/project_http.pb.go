@@ -25,8 +25,10 @@ const OperationProjectDeleteProjectTag = "/api.project.v1.Project/DeleteProjectT
 const OperationProjectDeleteProjectUser = "/api.project.v1.Project/DeleteProjectUser"
 const OperationProjectGetProject = "/api.project.v1.Project/GetProject"
 const OperationProjectGetProjectState = "/api.project.v1.Project/GetProjectState"
+const OperationProjectGetProjectUser = "/api.project.v1.Project/GetProjectUser"
 const OperationProjectListProject = "/api.project.v1.Project/ListProject"
 const OperationProjectUpdateProject = "/api.project.v1.Project/UpdateProject"
+const OperationProjectUpdateProjectUser = "/api.project.v1.Project/UpdateProjectUser"
 
 type ProjectHTTPServer interface {
 	CreateProject(context.Context, *CreateProjectRequest) (*CreateProjectReply, error)
@@ -35,8 +37,10 @@ type ProjectHTTPServer interface {
 	DeleteProjectUser(context.Context, *DeleteProjectUserRequest) (*DeleteProjectUserReply, error)
 	GetProject(context.Context, *GetProjectRequest) (*GetProjectReply, error)
 	GetProjectState(context.Context, *GetProjectStateRequest) (*GetProjectStateReply, error)
+	GetProjectUser(context.Context, *GetProjectUserRequest) (*GetProjectUserReply, error)
 	ListProject(context.Context, *ListProjectRequest) (*ListProjectReply, error)
 	UpdateProject(context.Context, *UpdateProjectRequest) (*UpdateProjectReply, error)
+	UpdateProjectUser(context.Context, *UpdateProjectUserRequest) (*UpdateProjectUserReply, error)
 }
 
 func RegisterProjectHTTPServer(s *http.Server, srv ProjectHTTPServer) {
@@ -49,6 +53,8 @@ func RegisterProjectHTTPServer(s *http.Server, srv ProjectHTTPServer) {
 	r.POST("/api/v1/project/user/delete", _Project_DeleteProjectUser0_HTTP_Handler(srv))
 	r.POST("/api/v1/project/tag/delete", _Project_DeleteProjectTag0_HTTP_Handler(srv))
 	r.POST("/api/v1/project/state", _Project_GetProjectState0_HTTP_Handler(srv))
+	r.POST("/api/v1/project/user/get", _Project_GetProjectUser0_HTTP_Handler(srv))
+	r.POST("/api/v1/project/user/update", _Project_UpdateProjectUser0_HTTP_Handler(srv))
 }
 
 func _Project_CreateProject0_HTTP_Handler(srv ProjectHTTPServer) func(ctx http.Context) error {
@@ -203,6 +209,44 @@ func _Project_GetProjectState0_HTTP_Handler(srv ProjectHTTPServer) func(ctx http
 	}
 }
 
+func _Project_GetProjectUser0_HTTP_Handler(srv ProjectHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetProjectUserRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProjectGetProjectUser)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetProjectUser(ctx, req.(*GetProjectUserRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetProjectUserReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Project_UpdateProjectUser0_HTTP_Handler(srv ProjectHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in UpdateProjectUserRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProjectUpdateProjectUser)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateProjectUser(ctx, req.(*UpdateProjectUserRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*UpdateProjectUserReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 type ProjectHTTPClient interface {
 	CreateProject(ctx context.Context, req *CreateProjectRequest, opts ...http.CallOption) (rsp *CreateProjectReply, err error)
 	DeleteProject(ctx context.Context, req *DeleteProjectRequest, opts ...http.CallOption) (rsp *DeleteProjectReply, err error)
@@ -210,8 +254,10 @@ type ProjectHTTPClient interface {
 	DeleteProjectUser(ctx context.Context, req *DeleteProjectUserRequest, opts ...http.CallOption) (rsp *DeleteProjectUserReply, err error)
 	GetProject(ctx context.Context, req *GetProjectRequest, opts ...http.CallOption) (rsp *GetProjectReply, err error)
 	GetProjectState(ctx context.Context, req *GetProjectStateRequest, opts ...http.CallOption) (rsp *GetProjectStateReply, err error)
+	GetProjectUser(ctx context.Context, req *GetProjectUserRequest, opts ...http.CallOption) (rsp *GetProjectUserReply, err error)
 	ListProject(ctx context.Context, req *ListProjectRequest, opts ...http.CallOption) (rsp *ListProjectReply, err error)
 	UpdateProject(ctx context.Context, req *UpdateProjectRequest, opts ...http.CallOption) (rsp *UpdateProjectReply, err error)
+	UpdateProjectUser(ctx context.Context, req *UpdateProjectUserRequest, opts ...http.CallOption) (rsp *UpdateProjectUserReply, err error)
 }
 
 type ProjectHTTPClientImpl struct {
@@ -300,6 +346,19 @@ func (c *ProjectHTTPClientImpl) GetProjectState(ctx context.Context, in *GetProj
 	return &out, err
 }
 
+func (c *ProjectHTTPClientImpl) GetProjectUser(ctx context.Context, in *GetProjectUserRequest, opts ...http.CallOption) (*GetProjectUserReply, error) {
+	var out GetProjectUserReply
+	pattern := "/api/v1/project/user/get"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationProjectGetProjectUser))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
 func (c *ProjectHTTPClientImpl) ListProject(ctx context.Context, in *ListProjectRequest, opts ...http.CallOption) (*ListProjectReply, error) {
 	var out ListProjectReply
 	pattern := "/api/v1/project/list"
@@ -318,6 +377,19 @@ func (c *ProjectHTTPClientImpl) UpdateProject(ctx context.Context, in *UpdatePro
 	pattern := "/api/v1/project/update"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationProjectUpdateProject))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProjectHTTPClientImpl) UpdateProjectUser(ctx context.Context, in *UpdateProjectUserRequest, opts ...http.CallOption) (*UpdateProjectUserReply, error) {
+	var out UpdateProjectUserReply
+	pattern := "/api/v1/project/user/update"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationProjectUpdateProjectUser))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

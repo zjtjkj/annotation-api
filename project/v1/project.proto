@@ -54,6 +54,18 @@ service Project {
 			body: "*"
 		};
 	}
+	rpc GetProjectUser(GetProjectUserRequest) returns (GetProjectUserReply) {
+		option (google.api.http) = {
+			post: "/api/v1/project/user/get",
+			body: "*"
+		};
+	}
+	rpc UpdateProjectUser(UpdateProjectUserRequest) returns (UpdateProjectUserReply) {
+		option (google.api.http) = {
+			post: "/api/v1/project/user/update",
+			body: "*"
+		};
+	}
 }
 
 enum State {
@@ -152,3 +164,16 @@ message GetProjectStateReply {
 	}
 	repeated State state = 1;
 }
+
+message GetProjectUserRequest {
+	uint32 project_id = 1;
+}
+message GetProjectUserReply {
+	repeated uint32 users = 1;
+}
+
+message UpdateProjectUserRequest {
+	uint32 project_id = 1;
+	repeated uint32 users = 2;
+}
+message UpdateProjectUserReply {}
