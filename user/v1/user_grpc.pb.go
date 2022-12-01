@@ -33,6 +33,7 @@ type UserClient interface {
 	GetUserByUsername(ctx context.Context, in *GetUserByUsernameRequest, opts ...grpc.CallOption) (*GetUserByUsernameReply, error)
 	GetStatus(ctx context.Context, in *GetStatusRequest, opts ...grpc.CallOption) (*GetStatusReply, error)
 	DistributeGroup(ctx context.Context, in *DistributeGroupRequest, opts ...grpc.CallOption) (*DistributeGroupReply, error)
+	BatchGetUser(ctx context.Context, in *BatchGetUserRequest, opts ...grpc.CallOption) (*BatchGetUserReply, error)
 }
 
 type userClient struct {
@@ -142,6 +143,15 @@ func (c *userClient) DistributeGroup(ctx context.Context, in *DistributeGroupReq
 	return out, nil
 }
 
+func (c *userClient) BatchGetUser(ctx context.Context, in *BatchGetUserRequest, opts ...grpc.CallOption) (*BatchGetUserReply, error) {
+	out := new(BatchGetUserReply)
+	err := c.cc.Invoke(ctx, "/api.user.v1.User/BatchGetUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility
@@ -157,6 +167,7 @@ type UserServer interface {
 	GetUserByUsername(context.Context, *GetUserByUsernameRequest) (*GetUserByUsernameReply, error)
 	GetStatus(context.Context, *GetStatusRequest) (*GetStatusReply, error)
 	DistributeGroup(context.Context, *DistributeGroupRequest) (*DistributeGroupReply, error)
+	BatchGetUser(context.Context, *BatchGetUserRequest) (*BatchGetUserReply, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -196,6 +207,9 @@ func (UnimplementedUserServer) GetStatus(context.Context, *GetStatusRequest) (*G
 }
 func (UnimplementedUserServer) DistributeGroup(context.Context, *DistributeGroupRequest) (*DistributeGroupReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DistributeGroup not implemented")
+}
+func (UnimplementedUserServer) BatchGetUser(context.Context, *BatchGetUserRequest) (*BatchGetUserReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BatchGetUser not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
@@ -408,6 +422,24 @@ func _User_DistributeGroup_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_BatchGetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BatchGetUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).BatchGetUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.user.v1.User/BatchGetUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).BatchGetUser(ctx, req.(*BatchGetUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -458,6 +490,10 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DistributeGroup",
 			Handler:    _User_DistributeGroup_Handler,
+		},
+		{
+			MethodName: "BatchGetUser",
+			Handler:    _User_BatchGetUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

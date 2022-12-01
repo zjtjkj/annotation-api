@@ -72,6 +72,12 @@ service User {
 			body: "*"
 		};
 	}
+	rpc BatchGetUser(BatchGetUserRequest) returns (BatchGetUserReply) {
+		option (google.api.http) = {
+			post: "/api/v1/user/batch/get",
+			body: "*"
+		};
+	}
 }
 
 enum Status {
@@ -216,3 +222,15 @@ message DistributeGroupRequest {
 	repeated uint32 groups = 2;
 }
 message DistributeGroupReply {}
+
+message BatchGetUserRequest {
+	repeated uint32 users = 1;
+}
+message BatchGetUserReply {
+	message User {
+		uint32 id = 1;
+		string name = 2;
+		Status status = 3;
+	}
+	repeated User users = 1;
+}

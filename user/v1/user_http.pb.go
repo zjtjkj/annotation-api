@@ -19,6 +19,7 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
+const OperationUserBatchGetUser = "/api.user.v1.User/BatchGetUser"
 const OperationUserCreateUser = "/api.user.v1.User/CreateUser"
 const OperationUserDeleteUser = "/api.user.v1.User/DeleteUser"
 const OperationUserDistributeGroup = "/api.user.v1.User/DistributeGroup"
@@ -32,6 +33,7 @@ const OperationUserUpdateStatus = "/api.user.v1.User/UpdateStatus"
 const OperationUserUpdateUser = "/api.user.v1.User/UpdateUser"
 
 type UserHTTPServer interface {
+	BatchGetUser(context.Context, *BatchGetUserRequest) (*BatchGetUserReply, error)
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserReply, error)
 	DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserReply, error)
 	DistributeGroup(context.Context, *DistributeGroupRequest) (*DistributeGroupReply, error)
@@ -58,6 +60,7 @@ func RegisterUserHTTPServer(s *http.Server, srv UserHTTPServer) {
 	r.POST("/api/v1/user/get/username", _User_GetUserByUsername0_HTTP_Handler(srv))
 	r.POST("/api/v1/status/get", _User_GetStatus0_HTTP_Handler(srv))
 	r.POST("/api/v1/user/distribute", _User_DistributeGroup0_HTTP_Handler(srv))
+	r.POST("/api/v1/user/batch/get", _User_BatchGetUser0_HTTP_Handler(srv))
 }
 
 func _User_CreateUser0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
@@ -269,7 +272,27 @@ func _User_DistributeGroup0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Conte
 	}
 }
 
+func _User_BatchGetUser0_HTTP_Handler(srv UserHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in BatchGetUserRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationUserBatchGetUser)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.BatchGetUser(ctx, req.(*BatchGetUserRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*BatchGetUserReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 type UserHTTPClient interface {
+	BatchGetUser(ctx context.Context, req *BatchGetUserRequest, opts ...http.CallOption) (rsp *BatchGetUserReply, err error)
 	CreateUser(ctx context.Context, req *CreateUserRequest, opts ...http.CallOption) (rsp *CreateUserReply, err error)
 	DeleteUser(ctx context.Context, req *DeleteUserRequest, opts ...http.CallOption) (rsp *DeleteUserReply, err error)
 	DistributeGroup(ctx context.Context, req *DistributeGroupRequest, opts ...http.CallOption) (rsp *DistributeGroupReply, err error)
@@ -289,6 +312,19 @@ type UserHTTPClientImpl struct {
 
 func NewUserHTTPClient(client *http.Client) UserHTTPClient {
 	return &UserHTTPClientImpl{client}
+}
+
+func (c *UserHTTPClientImpl) BatchGetUser(ctx context.Context, in *BatchGetUserRequest, opts ...http.CallOption) (*BatchGetUserReply, error) {
+	var out BatchGetUserReply
+	pattern := "/api/v1/user/batch/get"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationUserBatchGetUser))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
 }
 
 func (c *UserHTTPClientImpl) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...http.CallOption) (*CreateUserReply, error) {
