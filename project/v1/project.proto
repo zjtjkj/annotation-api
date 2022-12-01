@@ -48,6 +48,12 @@ service Project {
 			body: "*"
 		};
 	}
+	rpc GetProjectState(GetProjectStateRequest) returns (GetProjectStateReply) {
+		option (google.api.http) = {
+			post: "/api/v1/project/state",
+			body: "*"
+		};
+	}
 }
 
 enum State {
@@ -137,3 +143,12 @@ message DeleteProjectTagRequest {
 	uint32 tag_id = 1;
 }
 message DeleteProjectTagReply {}
+
+message GetProjectStateRequest {}
+message GetProjectStateReply {
+	message State {
+		uint32 id = 1;
+		string name = 2;
+	}
+	repeated State state = 1;
+}

@@ -24,6 +24,7 @@ const OperationProjectDeleteProject = "/api.project.v1.Project/DeleteProject"
 const OperationProjectDeleteProjectTag = "/api.project.v1.Project/DeleteProjectTag"
 const OperationProjectDeleteProjectUser = "/api.project.v1.Project/DeleteProjectUser"
 const OperationProjectGetProject = "/api.project.v1.Project/GetProject"
+const OperationProjectGetProjectState = "/api.project.v1.Project/GetProjectState"
 const OperationProjectListProject = "/api.project.v1.Project/ListProject"
 const OperationProjectUpdateProject = "/api.project.v1.Project/UpdateProject"
 
@@ -33,6 +34,7 @@ type ProjectHTTPServer interface {
 	DeleteProjectTag(context.Context, *DeleteProjectTagRequest) (*DeleteProjectTagReply, error)
 	DeleteProjectUser(context.Context, *DeleteProjectUserRequest) (*DeleteProjectUserReply, error)
 	GetProject(context.Context, *GetProjectRequest) (*GetProjectReply, error)
+	GetProjectState(context.Context, *GetProjectStateRequest) (*GetProjectStateReply, error)
 	ListProject(context.Context, *ListProjectRequest) (*ListProjectReply, error)
 	UpdateProject(context.Context, *UpdateProjectRequest) (*UpdateProjectReply, error)
 }
@@ -46,6 +48,7 @@ func RegisterProjectHTTPServer(s *http.Server, srv ProjectHTTPServer) {
 	r.POST("/api/v1/project/list", _Project_ListProject0_HTTP_Handler(srv))
 	r.POST("/api/v1/project/user/delete", _Project_DeleteProjectUser0_HTTP_Handler(srv))
 	r.POST("/api/v1/project/tag/delete", _Project_DeleteProjectTag0_HTTP_Handler(srv))
+	r.POST("/api/v1/project/state", _Project_GetProjectState0_HTTP_Handler(srv))
 }
 
 func _Project_CreateProject0_HTTP_Handler(srv ProjectHTTPServer) func(ctx http.Context) error {
@@ -181,12 +184,32 @@ func _Project_DeleteProjectTag0_HTTP_Handler(srv ProjectHTTPServer) func(ctx htt
 	}
 }
 
+func _Project_GetProjectState0_HTTP_Handler(srv ProjectHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetProjectStateRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProjectGetProjectState)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetProjectState(ctx, req.(*GetProjectStateRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetProjectStateReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 type ProjectHTTPClient interface {
 	CreateProject(ctx context.Context, req *CreateProjectRequest, opts ...http.CallOption) (rsp *CreateProjectReply, err error)
 	DeleteProject(ctx context.Context, req *DeleteProjectRequest, opts ...http.CallOption) (rsp *DeleteProjectReply, err error)
 	DeleteProjectTag(ctx context.Context, req *DeleteProjectTagRequest, opts ...http.CallOption) (rsp *DeleteProjectTagReply, err error)
 	DeleteProjectUser(ctx context.Context, req *DeleteProjectUserRequest, opts ...http.CallOption) (rsp *DeleteProjectUserReply, err error)
 	GetProject(ctx context.Context, req *GetProjectRequest, opts ...http.CallOption) (rsp *GetProjectReply, err error)
+	GetProjectState(ctx context.Context, req *GetProjectStateRequest, opts ...http.CallOption) (rsp *GetProjectStateReply, err error)
 	ListProject(ctx context.Context, req *ListProjectRequest, opts ...http.CallOption) (rsp *ListProjectReply, err error)
 	UpdateProject(ctx context.Context, req *UpdateProjectRequest, opts ...http.CallOption) (rsp *UpdateProjectReply, err error)
 }
@@ -256,6 +279,19 @@ func (c *ProjectHTTPClientImpl) GetProject(ctx context.Context, in *GetProjectRe
 	pattern := "/api/v1/project/get"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationProjectGetProject))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProjectHTTPClientImpl) GetProjectState(ctx context.Context, in *GetProjectStateRequest, opts ...http.CallOption) (*GetProjectStateReply, error) {
+	var out GetProjectStateReply
+	pattern := "/api/v1/project/state"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationProjectGetProjectState))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

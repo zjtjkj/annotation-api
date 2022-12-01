@@ -29,6 +29,7 @@ type ProjectClient interface {
 	ListProject(ctx context.Context, in *ListProjectRequest, opts ...grpc.CallOption) (*ListProjectReply, error)
 	DeleteProjectUser(ctx context.Context, in *DeleteProjectUserRequest, opts ...grpc.CallOption) (*DeleteProjectUserReply, error)
 	DeleteProjectTag(ctx context.Context, in *DeleteProjectTagRequest, opts ...grpc.CallOption) (*DeleteProjectTagReply, error)
+	GetProjectState(ctx context.Context, in *GetProjectStateRequest, opts ...grpc.CallOption) (*GetProjectStateReply, error)
 }
 
 type projectClient struct {
@@ -102,6 +103,15 @@ func (c *projectClient) DeleteProjectTag(ctx context.Context, in *DeleteProjectT
 	return out, nil
 }
 
+func (c *projectClient) GetProjectState(ctx context.Context, in *GetProjectStateRequest, opts ...grpc.CallOption) (*GetProjectStateReply, error) {
+	out := new(GetProjectStateReply)
+	err := c.cc.Invoke(ctx, "/api.project.v1.Project/GetProjectState", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProjectServer is the server API for Project service.
 // All implementations must embed UnimplementedProjectServer
 // for forward compatibility
@@ -113,6 +123,7 @@ type ProjectServer interface {
 	ListProject(context.Context, *ListProjectRequest) (*ListProjectReply, error)
 	DeleteProjectUser(context.Context, *DeleteProjectUserRequest) (*DeleteProjectUserReply, error)
 	DeleteProjectTag(context.Context, *DeleteProjectTagRequest) (*DeleteProjectTagReply, error)
+	GetProjectState(context.Context, *GetProjectStateRequest) (*GetProjectStateReply, error)
 	mustEmbedUnimplementedProjectServer()
 }
 
@@ -140,6 +151,9 @@ func (UnimplementedProjectServer) DeleteProjectUser(context.Context, *DeleteProj
 }
 func (UnimplementedProjectServer) DeleteProjectTag(context.Context, *DeleteProjectTagRequest) (*DeleteProjectTagReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteProjectTag not implemented")
+}
+func (UnimplementedProjectServer) GetProjectState(context.Context, *GetProjectStateRequest) (*GetProjectStateReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProjectState not implemented")
 }
 func (UnimplementedProjectServer) mustEmbedUnimplementedProjectServer() {}
 
@@ -280,6 +294,24 @@ func _Project_DeleteProjectTag_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Project_GetProjectState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProjectStateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectServer).GetProjectState(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.project.v1.Project/GetProjectState",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectServer).GetProjectState(ctx, req.(*GetProjectStateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Project_ServiceDesc is the grpc.ServiceDesc for Project service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -314,6 +346,10 @@ var Project_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteProjectTag",
 			Handler:    _Project_DeleteProjectTag_Handler,
+		},
+		{
+			MethodName: "GetProjectState",
+			Handler:    _Project_GetProjectState_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
