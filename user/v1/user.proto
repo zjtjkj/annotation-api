@@ -229,8 +229,9 @@ message BatchGetUserRequest {
 message BatchGetUserReply {
 	message User {
 		uint32 id = 1;
-		string name = 2;
-		Status status = 3;
+		string username = 2;
+		string name = 3;
+		Status status = 4;
 	}
 	repeated User users = 1;
 }
