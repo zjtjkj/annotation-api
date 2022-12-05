@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package api.tag.v1;
+import "google/api/annotations.proto";
+
+option go_package = "tag/api/tag/v1;v1";
+
+service Tag {
+	rpc CreateTag (CreateTagRequest) returns (CreateTagReply) {
+		option (google.api.http) = {
+			post: "/api/v1/tag/create",
+			body: "*"
+		};
+	}
+	rpc UpdateTag (UpdateTagRequest) returns (UpdateTagReply) {
+		option (google.api.http) = {
+			post: "/api/v1/tag/update",
+			body: "*"
+		};
+	}
+	rpc DeleteTag (DeleteTagRequest) returns (DeleteTagReply) {
+		option (google.api.http) = {
+			post: "/api/v1/tag/delete",
+			body: "*"
+		};
+	}
+	rpc ListTag (ListTagRequest) returns (ListTagReply) {
+		option (google.api.http) = {
+			post: "/api/v1/tag/list",
+			body: "*"
+		};
+	}
+}
+
+message CreateTagRequest {
+	message Tag {
+		string name = 1;
+		string shape = 2;
+		uint32 type = 3;
+	}
+	Tag tag = 1;
+}
+message CreateTagReply {}
+
+message UpdateTagRequest {
+	message Tag {
+		uint32 id = 1;
+		string name = 2;
+		string shape = 3;
+		uint32 type = 4;
+	}
+	Tag tag = 1;
+}
+message UpdateTagReply {}
+
+message DeleteTagRequest {
+	uint32 id = 1;
+}
+message DeleteTagReply {}
+
+message ListTagRequest {
+	message Paging {
+		uint32 index = 1;
+		uint32 size = 2;
+	}
+	message Condition {
+		string keyword = 1;
+		uint32 type = 2;
+	}
+	Paging paging = 1;
+	Condition condition = 2;
+}
+message ListTagReply {
+	message Paging {
+		uint32 index = 1;
+		uint32 size = 2;
+		uint32 page = 3;
+		uint32 total = 4;
+	}
+	message Tag {
+		uint32 id = 1;
+		string name = 2;
+		string shape = 3;
+		uint32 type = 4;
+	}
+	Paging paging = 1;
+	repeated Tag tags= 2;
+}

@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package api.tag_type.v1;
+import "google/api/annotations.proto";
+
+option go_package = "tag/api/tag_type/v1;v1";
+
+service TagType {
+	rpc CreateTagType (CreateTagTypeRequest) returns (CreateTagTypeReply) {
+		option (google.api.http) = {
+			post: "/api/v1/tag/type/create",
+			body: "*"
+		};
+	}
+	rpc UpdateTagType (UpdateTagTypeRequest) returns (UpdateTagTypeReply) {
+		option (google.api.http) = {
+			post: "/api/v1/tag/type/update",
+			body: "*"
+		};
+	}
+	rpc DeleteTagType (DeleteTagTypeRequest) returns (DeleteTagTypeReply) {
+		option (google.api.http) = {
+			post: "/api/v1/tag/type/delete",
+			body: "*"
+		};
+	}
+	rpc ListTagType (ListTagTypeRequest) returns (ListTagTypeReply) {
+		option (google.api.http) = {
+			post: "/api/v1/tag/type/list",
+			body: "*"
+		};
+	}
+}
+
+message CreateTagTypeRequest {
+	string name = 1;
+}
+message CreateTagTypeReply {}
+
+message UpdateTagTypeRequest {
+	message TagType {
+		uint32 id = 1;
+		string name = 2;
+	}
+	TagType tag_type = 1;
+}
+message UpdateTagTypeReply {}
+
+message DeleteTagTypeRequest {
+	uint32 id = 1;
+}
+message DeleteTagTypeReply {}
+
+message ListTagTypeRequest {}
+message ListTagTypeReply {
+	message TagType {
+		uint32 id = 1;
+		string name = 2;
+	}
+	repeated TagType tag_types = 1;
+}
