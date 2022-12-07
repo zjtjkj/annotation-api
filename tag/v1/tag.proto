@@ -30,6 +30,18 @@ service Tag {
 			body: "*"
 		};
 	}
+	rpc UploadImage(UploadImageRequest) returns (UploadImageReply) {
+		option (google.api.http) = {
+			post: "/api/v1/tag/image/upload",
+			body: "*"
+		};
+	}
+	rpc DeleteImage(DeleteImageRequest) returns (DeleteImageReply) {
+		option (google.api.http) = {
+			post: "/api/v1/tag/image/delete",
+			body: "*"
+		};
+	}
 }
 
 message CreateTagRequest {
@@ -82,7 +94,19 @@ message ListTagReply {
 		string name = 2;
 		string shape = 3;
 		uint32 type = 4;
+		repeated string images = 5;
 	}
 	Paging paging = 1;
 	repeated Tag tags= 2;
 }
+
+message UploadImageRequest {
+	uint32 tag_id = 1;
+	repeated string images = 2;
+}
+message UploadImageReply {}
+
+message DeleteImageRequest {
+	string image = 1;
+}
+message DeleteImageReply {}
