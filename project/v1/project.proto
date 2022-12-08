@@ -66,6 +66,18 @@ service Project {
 			body: "*"
 		};
 	}
+	rpc UpdateProjectTag(UpdateProjectTagRequest) returns (UpdateProjectTagReply) {
+		option (google.api.http) = {
+			post: "/api/v1/project/tag/update",
+			body: "*"
+		};
+	}
+	rpc GetProjectTag(GetProjectTagRequest) returns (GetProjectTagReply) {
+		option (google.api.http) = {
+			post: "/api/v1/project/tag/get",
+			body: "*"
+		};
+	}
 }
 
 enum State {
@@ -177,3 +189,16 @@ message UpdateProjectUserRequest {
 	repeated uint32 users = 2;
 }
 message UpdateProjectUserReply {}
+
+message UpdateProjectTagRequest {
+	uint32 project_id = 1;
+	repeated uint32 tags = 2;
+}
+message UpdateProjectTagReply {}
+
+message GetProjectTagRequest {
+	uint32 project_id = 1;
+}
+message GetProjectTagReply {
+	repeated uint32 tags = 2;
+}
