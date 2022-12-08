@@ -22,6 +22,7 @@ const _ = http.SupportPackageIsVersion1
 const OperationTagCreateTag = "/api.tag.v1.Tag/CreateTag"
 const OperationTagDeleteImage = "/api.tag.v1.Tag/DeleteImage"
 const OperationTagDeleteTag = "/api.tag.v1.Tag/DeleteTag"
+const OperationTagGetTag = "/api.tag.v1.Tag/GetTag"
 const OperationTagListTag = "/api.tag.v1.Tag/ListTag"
 const OperationTagUpdateTag = "/api.tag.v1.Tag/UpdateTag"
 const OperationTagUploadImage = "/api.tag.v1.Tag/UploadImage"
@@ -30,6 +31,7 @@ type TagHTTPServer interface {
 	CreateTag(context.Context, *CreateTagRequest) (*CreateTagReply, error)
 	DeleteImage(context.Context, *DeleteImageRequest) (*DeleteImageReply, error)
 	DeleteTag(context.Context, *DeleteTagRequest) (*DeleteTagReply, error)
+	GetTag(context.Context, *GetTagRequest) (*GetTagReply, error)
 	ListTag(context.Context, *ListTagRequest) (*ListTagReply, error)
 	UpdateTag(context.Context, *UpdateTagRequest) (*UpdateTagReply, error)
 	UploadImage(context.Context, *UploadImageRequest) (*UploadImageReply, error)
@@ -41,6 +43,7 @@ func RegisterTagHTTPServer(s *http.Server, srv TagHTTPServer) {
 	r.POST("/api/v1/tag/update", _Tag_UpdateTag0_HTTP_Handler(srv))
 	r.POST("/api/v1/tag/delete", _Tag_DeleteTag0_HTTP_Handler(srv))
 	r.POST("/api/v1/tag/list", _Tag_ListTag0_HTTP_Handler(srv))
+	r.POST("/api/v1/tag/get", _Tag_GetTag0_HTTP_Handler(srv))
 	r.POST("/api/v1/tag/image/upload", _Tag_UploadImage0_HTTP_Handler(srv))
 	r.POST("/api/v1/tag/image/delete", _Tag_DeleteImage0_HTTP_Handler(srv))
 }
@@ -121,6 +124,25 @@ func _Tag_ListTag0_HTTP_Handler(srv TagHTTPServer) func(ctx http.Context) error 
 	}
 }
 
+func _Tag_GetTag0_HTTP_Handler(srv TagHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetTagRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationTagGetTag)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetTag(ctx, req.(*GetTagRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetTagReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 func _Tag_UploadImage0_HTTP_Handler(srv TagHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in UploadImageRequest
@@ -163,6 +185,7 @@ type TagHTTPClient interface {
 	CreateTag(ctx context.Context, req *CreateTagRequest, opts ...http.CallOption) (rsp *CreateTagReply, err error)
 	DeleteImage(ctx context.Context, req *DeleteImageRequest, opts ...http.CallOption) (rsp *DeleteImageReply, err error)
 	DeleteTag(ctx context.Context, req *DeleteTagRequest, opts ...http.CallOption) (rsp *DeleteTagReply, err error)
+	GetTag(ctx context.Context, req *GetTagRequest, opts ...http.CallOption) (rsp *GetTagReply, err error)
 	ListTag(ctx context.Context, req *ListTagRequest, opts ...http.CallOption) (rsp *ListTagReply, err error)
 	UpdateTag(ctx context.Context, req *UpdateTagRequest, opts ...http.CallOption) (rsp *UpdateTagReply, err error)
 	UploadImage(ctx context.Context, req *UploadImageRequest, opts ...http.CallOption) (rsp *UploadImageReply, err error)
@@ -207,6 +230,19 @@ func (c *TagHTTPClientImpl) DeleteTag(ctx context.Context, in *DeleteTagRequest,
 	pattern := "/api/v1/tag/delete"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationTagDeleteTag))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *TagHTTPClientImpl) GetTag(ctx context.Context, in *GetTagRequest, opts ...http.CallOption) (*GetTagReply, error) {
+	var out GetTagReply
+	pattern := "/api/v1/tag/get"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationTagGetTag))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

@@ -26,6 +26,7 @@ type TagClient interface {
 	UpdateTag(ctx context.Context, in *UpdateTagRequest, opts ...grpc.CallOption) (*UpdateTagReply, error)
 	DeleteTag(ctx context.Context, in *DeleteTagRequest, opts ...grpc.CallOption) (*DeleteTagReply, error)
 	ListTag(ctx context.Context, in *ListTagRequest, opts ...grpc.CallOption) (*ListTagReply, error)
+	GetTag(ctx context.Context, in *GetTagRequest, opts ...grpc.CallOption) (*GetTagReply, error)
 	UploadImage(ctx context.Context, in *UploadImageRequest, opts ...grpc.CallOption) (*UploadImageReply, error)
 	DeleteImage(ctx context.Context, in *DeleteImageRequest, opts ...grpc.CallOption) (*DeleteImageReply, error)
 }
@@ -74,6 +75,15 @@ func (c *tagClient) ListTag(ctx context.Context, in *ListTagRequest, opts ...grp
 	return out, nil
 }
 
+func (c *tagClient) GetTag(ctx context.Context, in *GetTagRequest, opts ...grpc.CallOption) (*GetTagReply, error) {
+	out := new(GetTagReply)
+	err := c.cc.Invoke(ctx, "/api.tag.v1.Tag/GetTag", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *tagClient) UploadImage(ctx context.Context, in *UploadImageRequest, opts ...grpc.CallOption) (*UploadImageReply, error) {
 	out := new(UploadImageReply)
 	err := c.cc.Invoke(ctx, "/api.tag.v1.Tag/UploadImage", in, out, opts...)
@@ -100,6 +110,7 @@ type TagServer interface {
 	UpdateTag(context.Context, *UpdateTagRequest) (*UpdateTagReply, error)
 	DeleteTag(context.Context, *DeleteTagRequest) (*DeleteTagReply, error)
 	ListTag(context.Context, *ListTagRequest) (*ListTagReply, error)
+	GetTag(context.Context, *GetTagRequest) (*GetTagReply, error)
 	UploadImage(context.Context, *UploadImageRequest) (*UploadImageReply, error)
 	DeleteImage(context.Context, *DeleteImageRequest) (*DeleteImageReply, error)
 	mustEmbedUnimplementedTagServer()
@@ -120,6 +131,9 @@ func (UnimplementedTagServer) DeleteTag(context.Context, *DeleteTagRequest) (*De
 }
 func (UnimplementedTagServer) ListTag(context.Context, *ListTagRequest) (*ListTagReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListTag not implemented")
+}
+func (UnimplementedTagServer) GetTag(context.Context, *GetTagRequest) (*GetTagReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTag not implemented")
 }
 func (UnimplementedTagServer) UploadImage(context.Context, *UploadImageRequest) (*UploadImageReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UploadImage not implemented")
@@ -212,6 +226,24 @@ func _Tag_ListTag_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Tag_GetTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTagRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TagServer).GetTag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.tag.v1.Tag/GetTag",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TagServer).GetTag(ctx, req.(*GetTagRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Tag_UploadImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UploadImageRequest)
 	if err := dec(in); err != nil {
@@ -270,6 +302,10 @@ var Tag_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListTag",
 			Handler:    _Tag_ListTag_Handler,
+		},
+		{
+			MethodName: "GetTag",
+			Handler:    _Tag_GetTag_Handler,
 		},
 		{
 			MethodName: "UploadImage",

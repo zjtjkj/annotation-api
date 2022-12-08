@@ -30,6 +30,12 @@ service Tag {
 			body: "*"
 		};
 	}
+	rpc GetTag(GetTagRequest) returns (GetTagReply) {
+		option (google.api.http) = {
+			post: "/api/v1/tag/get",
+			body: "*"
+		};
+	}
 	rpc UploadImage(UploadImageRequest) returns (UploadImageReply) {
 		option (google.api.http) = {
 			post: "/api/v1/tag/image/upload",
@@ -98,6 +104,20 @@ message ListTagReply {
 	}
 	Paging paging = 1;
 	repeated Tag tags= 2;
+}
+
+message GetTagRequest {
+	uint32 id = 1;
+}
+message GetTagReply {
+	message Tag {
+		uint32 id = 1;
+		string tag_name = 2;
+		string shape = 3;
+		uint32 type = 4;
+		repeated string images = 5;
+	}
+	Tag tag = 1;
 }
 
 message UploadImageRequest {
