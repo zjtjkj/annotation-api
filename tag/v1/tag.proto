@@ -36,6 +36,12 @@ service Tag {
 			body: "*"
 		};
 	}
+	rpc BatchGetTag(BatchGetTagRequest) returns (BatchGetTagReply) {
+		option (google.api.http) = {
+			post: "/api/v1/tag/batch/get",
+			body: "*"
+		};
+	}
 	rpc UploadImage(UploadImageRequest) returns (UploadImageReply) {
 		option (google.api.http) = {
 			post: "/api/v1/tag/image/upload",
@@ -118,6 +124,20 @@ message GetTagReply {
 		repeated string images = 5;
 	}
 	Tag tag = 1;
+}
+
+message BatchGetTagRequest {
+	repeated uint32 id = 1;
+}
+message BatchGetTagReply {
+	message Tag {
+		uint32 id = 1;
+		string tag_name = 2;
+		string shape = 3;
+		uint32 type = 4;
+		repeated string images = 5;
+	}
+	repeated Tag tags = 1;
 }
 
 message UploadImageRequest {

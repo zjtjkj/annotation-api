@@ -27,6 +27,7 @@ type TagClient interface {
 	DeleteTag(ctx context.Context, in *DeleteTagRequest, opts ...grpc.CallOption) (*DeleteTagReply, error)
 	ListTag(ctx context.Context, in *ListTagRequest, opts ...grpc.CallOption) (*ListTagReply, error)
 	GetTag(ctx context.Context, in *GetTagRequest, opts ...grpc.CallOption) (*GetTagReply, error)
+	BatchGetTag(ctx context.Context, in *BatchGetTagRequest, opts ...grpc.CallOption) (*BatchGetTagReply, error)
 	UploadImage(ctx context.Context, in *UploadImageRequest, opts ...grpc.CallOption) (*UploadImageReply, error)
 	DeleteImage(ctx context.Context, in *DeleteImageRequest, opts ...grpc.CallOption) (*DeleteImageReply, error)
 }
@@ -84,6 +85,15 @@ func (c *tagClient) GetTag(ctx context.Context, in *GetTagRequest, opts ...grpc.
 	return out, nil
 }
 
+func (c *tagClient) BatchGetTag(ctx context.Context, in *BatchGetTagRequest, opts ...grpc.CallOption) (*BatchGetTagReply, error) {
+	out := new(BatchGetTagReply)
+	err := c.cc.Invoke(ctx, "/api.tag.v1.Tag/BatchGetTag", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *tagClient) UploadImage(ctx context.Context, in *UploadImageRequest, opts ...grpc.CallOption) (*UploadImageReply, error) {
 	out := new(UploadImageReply)
 	err := c.cc.Invoke(ctx, "/api.tag.v1.Tag/UploadImage", in, out, opts...)
@@ -111,6 +121,7 @@ type TagServer interface {
 	DeleteTag(context.Context, *DeleteTagRequest) (*DeleteTagReply, error)
 	ListTag(context.Context, *ListTagRequest) (*ListTagReply, error)
 	GetTag(context.Context, *GetTagRequest) (*GetTagReply, error)
+	BatchGetTag(context.Context, *BatchGetTagRequest) (*BatchGetTagReply, error)
 	UploadImage(context.Context, *UploadImageRequest) (*UploadImageReply, error)
 	DeleteImage(context.Context, *DeleteImageRequest) (*DeleteImageReply, error)
 	mustEmbedUnimplementedTagServer()
@@ -134,6 +145,9 @@ func (UnimplementedTagServer) ListTag(context.Context, *ListTagRequest) (*ListTa
 }
 func (UnimplementedTagServer) GetTag(context.Context, *GetTagRequest) (*GetTagReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTag not implemented")
+}
+func (UnimplementedTagServer) BatchGetTag(context.Context, *BatchGetTagRequest) (*BatchGetTagReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BatchGetTag not implemented")
 }
 func (UnimplementedTagServer) UploadImage(context.Context, *UploadImageRequest) (*UploadImageReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UploadImage not implemented")
@@ -244,6 +258,24 @@ func _Tag_GetTag_Handler(srv interface{}, ctx context.Context, dec func(interfac
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Tag_BatchGetTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BatchGetTagRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TagServer).BatchGetTag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.tag.v1.Tag/BatchGetTag",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TagServer).BatchGetTag(ctx, req.(*BatchGetTagRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Tag_UploadImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UploadImageRequest)
 	if err := dec(in); err != nil {
@@ -306,6 +338,10 @@ var Tag_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTag",
 			Handler:    _Tag_GetTag_Handler,
+		},
+		{
+			MethodName: "BatchGetTag",
+			Handler:    _Tag_BatchGetTag_Handler,
 		},
 		{
 			MethodName: "UploadImage",
