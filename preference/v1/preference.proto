@@ -19,6 +19,18 @@ service Preference {
 			body: "*"
 		};
 	}
+	rpc UpdateTagPreference(UpdateTagPreferenceRequest) returns (UpdateTagPreferenceReply) {
+		option (google.api.http) = {
+			post: "/api/v1/preference/tag/update"
+			body: "*"
+		};
+	}
+	rpc GetTagPreference(GetTagPreferenceRequest) returns (GetTagPreferenceReply) {
+		option (google.api.http) = {
+			post: "/api/v1/preference/tag/get"
+			body: "*"
+		};
+	}
 }
 
 message UpdatePreferenceRequest {
@@ -46,4 +58,19 @@ message GetPreferenceReply {
 		bool hide_color = 5;
 	}
 	Preference preference = 1;
+}
+
+message UpdateTagPreferenceRequest {
+	uint32 user_id = 1;
+	uint32 project_id = 2;
+	repeated uint32 tags_id = 3;
+}
+message UpdateTagPreferenceReply {}
+
+message GetTagPreferenceRequest {
+	uint32 user_id = 1;
+	uint32 project_id = 2;
+}
+message GetTagPreferenceReply {
+	repeated uint32 tags_id = 3;
 }

@@ -208,6 +208,209 @@ func (x *GetPreferenceReply) GetPreference() *GetPreferenceReply_Preference {
 	return nil
 }
 
+type UpdateTagPreferenceRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId    uint32   `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	ProjectId uint32   `protobuf:"varint,2,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
+	TagsId    []uint32 `protobuf:"varint,3,rep,packed,name=tags_id,json=tagsId,proto3" json:"tags_id,omitempty"`
+}
+
+func (x *UpdateTagPreferenceRequest) Reset() {
+	*x = UpdateTagPreferenceRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_preference_v1_preference_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateTagPreferenceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateTagPreferenceRequest) ProtoMessage() {}
+
+func (x *UpdateTagPreferenceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_preference_v1_preference_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateTagPreferenceRequest.ProtoReflect.Descriptor instead.
+func (*UpdateTagPreferenceRequest) Descriptor() ([]byte, []int) {
+	return file_preference_v1_preference_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *UpdateTagPreferenceRequest) GetUserId() uint32 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *UpdateTagPreferenceRequest) GetProjectId() uint32 {
+	if x != nil {
+		return x.ProjectId
+	}
+	return 0
+}
+
+func (x *UpdateTagPreferenceRequest) GetTagsId() []uint32 {
+	if x != nil {
+		return x.TagsId
+	}
+	return nil
+}
+
+type UpdateTagPreferenceReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *UpdateTagPreferenceReply) Reset() {
+	*x = UpdateTagPreferenceReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_preference_v1_preference_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateTagPreferenceReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateTagPreferenceReply) ProtoMessage() {}
+
+func (x *UpdateTagPreferenceReply) ProtoReflect() protoreflect.Message {
+	mi := &file_preference_v1_preference_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateTagPreferenceReply.ProtoReflect.Descriptor instead.
+func (*UpdateTagPreferenceReply) Descriptor() ([]byte, []int) {
+	return file_preference_v1_preference_proto_rawDescGZIP(), []int{5}
+}
+
+type GetTagPreferenceRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId    uint32 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	ProjectId uint32 `protobuf:"varint,2,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
+}
+
+func (x *GetTagPreferenceRequest) Reset() {
+	*x = GetTagPreferenceRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_preference_v1_preference_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetTagPreferenceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTagPreferenceRequest) ProtoMessage() {}
+
+func (x *GetTagPreferenceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_preference_v1_preference_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTagPreferenceRequest.ProtoReflect.Descriptor instead.
+func (*GetTagPreferenceRequest) Descriptor() ([]byte, []int) {
+	return file_preference_v1_preference_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *GetTagPreferenceRequest) GetUserId() uint32 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *GetTagPreferenceRequest) GetProjectId() uint32 {
+	if x != nil {
+		return x.ProjectId
+	}
+	return 0
+}
+
+type GetTagPreferenceReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TagsId []uint32 `protobuf:"varint,3,rep,packed,name=tags_id,json=tagsId,proto3" json:"tags_id,omitempty"`
+}
+
+func (x *GetTagPreferenceReply) Reset() {
+	*x = GetTagPreferenceReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_preference_v1_preference_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetTagPreferenceReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTagPreferenceReply) ProtoMessage() {}
+
+func (x *GetTagPreferenceReply) ProtoReflect() protoreflect.Message {
+	mi := &file_preference_v1_preference_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTagPreferenceReply.ProtoReflect.Descriptor instead.
+func (*GetTagPreferenceReply) Descriptor() ([]byte, []int) {
+	return file_preference_v1_preference_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *GetTagPreferenceReply) GetTagsId() []uint32 {
+	if x != nil {
+		return x.TagsId
+	}
+	return nil
+}
+
 type UpdatePreferenceRequest_Preference struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -223,7 +426,7 @@ type UpdatePreferenceRequest_Preference struct {
 func (x *UpdatePreferenceRequest_Preference) Reset() {
 	*x = UpdatePreferenceRequest_Preference{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_preference_v1_preference_proto_msgTypes[4]
+		mi := &file_preference_v1_preference_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -236,7 +439,7 @@ func (x *UpdatePreferenceRequest_Preference) String() string {
 func (*UpdatePreferenceRequest_Preference) ProtoMessage() {}
 
 func (x *UpdatePreferenceRequest_Preference) ProtoReflect() protoreflect.Message {
-	mi := &file_preference_v1_preference_proto_msgTypes[4]
+	mi := &file_preference_v1_preference_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -302,7 +505,7 @@ type GetPreferenceReply_Preference struct {
 func (x *GetPreferenceReply_Preference) Reset() {
 	*x = GetPreferenceReply_Preference{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_preference_v1_preference_proto_msgTypes[5]
+		mi := &file_preference_v1_preference_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -315,7 +518,7 @@ func (x *GetPreferenceReply_Preference) String() string {
 func (*GetPreferenceReply_Preference) ProtoMessage() {}
 
 func (x *GetPreferenceReply_Preference) ProtoReflect() protoreflect.Message {
-	mi := &file_preference_v1_preference_proto_msgTypes[5]
+	mi := &file_preference_v1_preference_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -410,7 +613,24 @@ var file_preference_v1_preference_proto_rawDesc = []byte{
 	0x12, 0x1b, 0x0a, 0x09, 0x68, 0x69, 0x64, 0x65, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x04, 0x20,
 	0x01, 0x28, 0x08, 0x52, 0x08, 0x68, 0x69, 0x64, 0x65, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x1d, 0x0a,
 	0x0a, 0x68, 0x69, 0x64, 0x65, 0x5f, 0x63, 0x6f, 0x6c, 0x6f, 0x72, 0x18, 0x05, 0x20, 0x01, 0x28,
-	0x08, 0x52, 0x09, 0x68, 0x69, 0x64, 0x65, 0x43, 0x6f, 0x6c, 0x6f, 0x72, 0x32, 0xa2, 0x02, 0x0a,
+	0x08, 0x52, 0x09, 0x68, 0x69, 0x64, 0x65, 0x43, 0x6f, 0x6c, 0x6f, 0x72, 0x22, 0x6d, 0x0a, 0x1a,
+	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x54, 0x61, 0x67, 0x50, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65,
+	0x6e, 0x63, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73,
+	0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x06, 0x75, 0x73, 0x65,
+	0x72, 0x49, 0x64, 0x12, 0x1d, 0x0a, 0x0a, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x69,
+	0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x09, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74,
+	0x49, 0x64, 0x12, 0x17, 0x0a, 0x07, 0x74, 0x61, 0x67, 0x73, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20,
+	0x03, 0x28, 0x0d, 0x52, 0x06, 0x74, 0x61, 0x67, 0x73, 0x49, 0x64, 0x22, 0x1a, 0x0a, 0x18, 0x55,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x54, 0x61, 0x67, 0x50, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e,
+	0x63, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x51, 0x0a, 0x17, 0x47, 0x65, 0x74, 0x54, 0x61,
+	0x67, 0x50, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0d, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x1d, 0x0a, 0x0a, 0x70,
+	0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0d, 0x52,
+	0x09, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x49, 0x64, 0x22, 0x30, 0x0a, 0x15, 0x47, 0x65,
+	0x74, 0x54, 0x61, 0x67, 0x50, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x52, 0x65,
+	0x70, 0x6c, 0x79, 0x12, 0x17, 0x0a, 0x07, 0x74, 0x61, 0x67, 0x73, 0x5f, 0x69, 0x64, 0x18, 0x03,
+	0x20, 0x03, 0x28, 0x0d, 0x52, 0x06, 0x74, 0x61, 0x67, 0x73, 0x49, 0x64, 0x32, 0xd2, 0x04, 0x0a,
 	0x0a, 0x50, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x12, 0x8e, 0x01, 0x0a, 0x10,
 	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65,
 	0x12, 0x2a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x70, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63,
@@ -429,6 +649,25 @@ var file_preference_v1_preference_proto_rawDesc = []byte{
 	0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x21,
 	0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1b, 0x22, 0x16, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x31, 0x2f,
 	0x70, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x2f, 0x67, 0x65, 0x74, 0x3a, 0x01,
+	0x2a, 0x12, 0x9b, 0x01, 0x0a, 0x13, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x54, 0x61, 0x67, 0x50,
+	0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x12, 0x2d, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x70, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x54, 0x61, 0x67, 0x50, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63,
+	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x70,
+	0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x70, 0x64,
+	0x61, 0x74, 0x65, 0x54, 0x61, 0x67, 0x50, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65,
+	0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x28, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x22, 0x22, 0x1d, 0x2f,
+	0x61, 0x70, 0x69, 0x2f, 0x76, 0x31, 0x2f, 0x70, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63,
+	0x65, 0x2f, 0x74, 0x61, 0x67, 0x2f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x3a, 0x01, 0x2a, 0x12,
+	0x8f, 0x01, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x54, 0x61, 0x67, 0x50, 0x72, 0x65, 0x66, 0x65, 0x72,
+	0x65, 0x6e, 0x63, 0x65, 0x12, 0x2a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x70, 0x72, 0x65, 0x66, 0x65,
+	0x72, 0x65, 0x6e, 0x63, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x54, 0x61, 0x67, 0x50,
+	0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x28, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x70, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63,
+	0x65, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x54, 0x61, 0x67, 0x50, 0x72, 0x65, 0x66, 0x65,
+	0x72, 0x65, 0x6e, 0x63, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x25, 0x82, 0xd3, 0xe4, 0x93,
+	0x02, 0x1f, 0x22, 0x1a, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x76, 0x31, 0x2f, 0x70, 0x72, 0x65, 0x66,
+	0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x2f, 0x74, 0x61, 0x67, 0x2f, 0x67, 0x65, 0x74, 0x3a, 0x01,
 	0x2a, 0x42, 0x1b, 0x5a, 0x19, 0x75, 0x73, 0x65, 0x72, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x70, 0x72,
 	0x65, 0x66, 0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06,
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
@@ -446,24 +685,32 @@ func file_preference_v1_preference_proto_rawDescGZIP() []byte {
 	return file_preference_v1_preference_proto_rawDescData
 }
 
-var file_preference_v1_preference_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_preference_v1_preference_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_preference_v1_preference_proto_goTypes = []interface{}{
 	(*UpdatePreferenceRequest)(nil),            // 0: api.preference.v1.UpdatePreferenceRequest
 	(*UpdatePreferenceReply)(nil),              // 1: api.preference.v1.UpdatePreferenceReply
 	(*GetPreferenceRequest)(nil),               // 2: api.preference.v1.GetPreferenceRequest
 	(*GetPreferenceReply)(nil),                 // 3: api.preference.v1.GetPreferenceReply
-	(*UpdatePreferenceRequest_Preference)(nil), // 4: api.preference.v1.UpdatePreferenceRequest.Preference
-	(*GetPreferenceReply_Preference)(nil),      // 5: api.preference.v1.GetPreferenceReply.Preference
+	(*UpdateTagPreferenceRequest)(nil),         // 4: api.preference.v1.UpdateTagPreferenceRequest
+	(*UpdateTagPreferenceReply)(nil),           // 5: api.preference.v1.UpdateTagPreferenceReply
+	(*GetTagPreferenceRequest)(nil),            // 6: api.preference.v1.GetTagPreferenceRequest
+	(*GetTagPreferenceReply)(nil),              // 7: api.preference.v1.GetTagPreferenceReply
+	(*UpdatePreferenceRequest_Preference)(nil), // 8: api.preference.v1.UpdatePreferenceRequest.Preference
+	(*GetPreferenceReply_Preference)(nil),      // 9: api.preference.v1.GetPreferenceReply.Preference
 }
 var file_preference_v1_preference_proto_depIdxs = []int32{
-	4, // 0: api.preference.v1.UpdatePreferenceRequest.preference:type_name -> api.preference.v1.UpdatePreferenceRequest.Preference
-	5, // 1: api.preference.v1.GetPreferenceReply.preference:type_name -> api.preference.v1.GetPreferenceReply.Preference
+	8, // 0: api.preference.v1.UpdatePreferenceRequest.preference:type_name -> api.preference.v1.UpdatePreferenceRequest.Preference
+	9, // 1: api.preference.v1.GetPreferenceReply.preference:type_name -> api.preference.v1.GetPreferenceReply.Preference
 	0, // 2: api.preference.v1.Preference.UpdatePreference:input_type -> api.preference.v1.UpdatePreferenceRequest
 	2, // 3: api.preference.v1.Preference.GetPreference:input_type -> api.preference.v1.GetPreferenceRequest
-	1, // 4: api.preference.v1.Preference.UpdatePreference:output_type -> api.preference.v1.UpdatePreferenceReply
-	3, // 5: api.preference.v1.Preference.GetPreference:output_type -> api.preference.v1.GetPreferenceReply
-	4, // [4:6] is the sub-list for method output_type
-	2, // [2:4] is the sub-list for method input_type
+	4, // 4: api.preference.v1.Preference.UpdateTagPreference:input_type -> api.preference.v1.UpdateTagPreferenceRequest
+	6, // 5: api.preference.v1.Preference.GetTagPreference:input_type -> api.preference.v1.GetTagPreferenceRequest
+	1, // 6: api.preference.v1.Preference.UpdatePreference:output_type -> api.preference.v1.UpdatePreferenceReply
+	3, // 7: api.preference.v1.Preference.GetPreference:output_type -> api.preference.v1.GetPreferenceReply
+	5, // 8: api.preference.v1.Preference.UpdateTagPreference:output_type -> api.preference.v1.UpdateTagPreferenceReply
+	7, // 9: api.preference.v1.Preference.GetTagPreference:output_type -> api.preference.v1.GetTagPreferenceReply
+	6, // [6:10] is the sub-list for method output_type
+	2, // [2:6] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
 	2, // [2:2] is the sub-list for extension extendee
 	0, // [0:2] is the sub-list for field type_name
@@ -524,7 +771,7 @@ func file_preference_v1_preference_proto_init() {
 			}
 		}
 		file_preference_v1_preference_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdatePreferenceRequest_Preference); i {
+			switch v := v.(*UpdateTagPreferenceRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -536,6 +783,54 @@ func file_preference_v1_preference_proto_init() {
 			}
 		}
 		file_preference_v1_preference_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateTagPreferenceReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_preference_v1_preference_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetTagPreferenceRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_preference_v1_preference_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetTagPreferenceReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_preference_v1_preference_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdatePreferenceRequest_Preference); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_preference_v1_preference_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetPreferenceReply_Preference); i {
 			case 0:
 				return &v.state
@@ -554,7 +849,7 @@ func file_preference_v1_preference_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_preference_v1_preference_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

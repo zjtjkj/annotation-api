@@ -24,6 +24,8 @@ const _ = grpc.SupportPackageIsVersion7
 type PreferenceClient interface {
 	UpdatePreference(ctx context.Context, in *UpdatePreferenceRequest, opts ...grpc.CallOption) (*UpdatePreferenceReply, error)
 	GetPreference(ctx context.Context, in *GetPreferenceRequest, opts ...grpc.CallOption) (*GetPreferenceReply, error)
+	UpdateTagPreference(ctx context.Context, in *UpdateTagPreferenceRequest, opts ...grpc.CallOption) (*UpdateTagPreferenceReply, error)
+	GetTagPreference(ctx context.Context, in *GetTagPreferenceRequest, opts ...grpc.CallOption) (*GetTagPreferenceReply, error)
 }
 
 type preferenceClient struct {
@@ -52,12 +54,32 @@ func (c *preferenceClient) GetPreference(ctx context.Context, in *GetPreferenceR
 	return out, nil
 }
 
+func (c *preferenceClient) UpdateTagPreference(ctx context.Context, in *UpdateTagPreferenceRequest, opts ...grpc.CallOption) (*UpdateTagPreferenceReply, error) {
+	out := new(UpdateTagPreferenceReply)
+	err := c.cc.Invoke(ctx, "/api.preference.v1.Preference/UpdateTagPreference", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *preferenceClient) GetTagPreference(ctx context.Context, in *GetTagPreferenceRequest, opts ...grpc.CallOption) (*GetTagPreferenceReply, error) {
+	out := new(GetTagPreferenceReply)
+	err := c.cc.Invoke(ctx, "/api.preference.v1.Preference/GetTagPreference", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PreferenceServer is the server API for Preference service.
 // All implementations must embed UnimplementedPreferenceServer
 // for forward compatibility
 type PreferenceServer interface {
 	UpdatePreference(context.Context, *UpdatePreferenceRequest) (*UpdatePreferenceReply, error)
 	GetPreference(context.Context, *GetPreferenceRequest) (*GetPreferenceReply, error)
+	UpdateTagPreference(context.Context, *UpdateTagPreferenceRequest) (*UpdateTagPreferenceReply, error)
+	GetTagPreference(context.Context, *GetTagPreferenceRequest) (*GetTagPreferenceReply, error)
 	mustEmbedUnimplementedPreferenceServer()
 }
 
@@ -70,6 +92,12 @@ func (UnimplementedPreferenceServer) UpdatePreference(context.Context, *UpdatePr
 }
 func (UnimplementedPreferenceServer) GetPreference(context.Context, *GetPreferenceRequest) (*GetPreferenceReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPreference not implemented")
+}
+func (UnimplementedPreferenceServer) UpdateTagPreference(context.Context, *UpdateTagPreferenceRequest) (*UpdateTagPreferenceReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateTagPreference not implemented")
+}
+func (UnimplementedPreferenceServer) GetTagPreference(context.Context, *GetTagPreferenceRequest) (*GetTagPreferenceReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTagPreference not implemented")
 }
 func (UnimplementedPreferenceServer) mustEmbedUnimplementedPreferenceServer() {}
 
@@ -120,6 +148,42 @@ func _Preference_GetPreference_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Preference_UpdateTagPreference_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateTagPreferenceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PreferenceServer).UpdateTagPreference(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.preference.v1.Preference/UpdateTagPreference",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PreferenceServer).UpdateTagPreference(ctx, req.(*UpdateTagPreferenceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Preference_GetTagPreference_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTagPreferenceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PreferenceServer).GetTagPreference(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.preference.v1.Preference/GetTagPreference",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PreferenceServer).GetTagPreference(ctx, req.(*GetTagPreferenceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Preference_ServiceDesc is the grpc.ServiceDesc for Preference service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -134,6 +198,14 @@ var Preference_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPreference",
 			Handler:    _Preference_GetPreference_Handler,
+		},
+		{
+			MethodName: "UpdateTagPreference",
+			Handler:    _Preference_UpdateTagPreference_Handler,
+		},
+		{
+			MethodName: "GetTagPreference",
+			Handler:    _Preference_GetTagPreference_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
