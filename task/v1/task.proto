@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+package api.task.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "task/api/task/v1;v1";
+
+service Task {
+	rpc CreateTask (CreateTaskRequest) returns (CreateTaskReply) {
+		option (google.api.http) = {
+			post: "/api/v1/task/create",
+			body: "*"
+		};
+	}
+	rpc DeleteTask (DeleteTaskRequest) returns (DeleteTaskReply) {
+		option (google.api.http) = {
+			post: "/api/v1/task/delete",
+			body: "*"
+		};
+	}
+	rpc GetTask (GetTaskRequest) returns (GetTaskReply) {
+		option (google.api.http) = {
+			post: "/api/v1/task/get",
+			body: "*"
+		};
+	}
+	rpc ListTask (ListTaskRequest) returns (ListTaskReply) {
+		option (google.api.http) = {
+			post: "/api/v1/task/list",
+			body: "*"
+		};
+	}
+}
+
+enum State {
+	ToBeAnswered = 0;
+	ToBeCompleted = 1;
+	ToBeAudited = 2;
+	ToBeModified = 3;
+	Completed = 4;
+}
+
+message CreateTaskRequest {
+	message Task {
+		uint32 project_id = 2;
+		string image = 3;
+		State state_id = 4;
+		uint32 annotator_id = 5;
+		uint32 auditor_id = 6;
+		uint32 administrator_id = 7;
+		string md5 = 8;
+	}
+	Task task = 1;
+}
+message CreateTaskReply {}
+
+message DeleteTaskRequest {
+	uint32 id = 1;
+}
+message DeleteTaskReply {}
+
+message GetTaskRequest {
+	uint32 id = 1;
+}
+message GetTaskReply {
+	message Task {
+		uint32 id = 1;
+		google.protobuf.Timestamp created_at = 2;
+		string image = 3;
+		State state = 4;
+		uint32 Annotator = 5;
+		uint32 Auditor = 6;
+		uint32 Administrator = 7;
+	}
+	Task task = 1;
+}
+
+message ListTaskRequest {
+	message Paging {
+		uint32 index = 1;
+		uint32 size = 2;
+	}
+	message Condition {
+		string keyword = 1;
+		repeated State states = 2;
+	}
+	Paging paging = 1;
+	Condition condition = 2;
+}
+message ListTaskReply {
+	message Paging {
+		uint32 index = 1;
+		uint32 size = 2;
+		uint32 page = 3;
+		uint32 total = 4;
+	}
+	message Task {
+		uint32 id = 1;
+		google.protobuf.Timestamp created_at = 2;
+		string image = 3;
+		State state = 4;
+		uint32 Annotator = 5;
+		uint32 Auditor = 6;
+		uint32 Administrator = 7;
+	}
+	Paging paging = 1;
+	repeated Task tasks = 2;
+}
