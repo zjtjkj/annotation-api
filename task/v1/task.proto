@@ -43,13 +43,13 @@ enum State {
 }
 
 message CreateTaskRequest {
-	message Task {
-		uint32 project_id = 1;
-		string image = 2;
-		uint32 administrator_id = 3;
-		string md5 = 4;
+	message Image {
+		string image = 1;
+		string md5 = 2;
 	}
-	Task task = 1;
+	uint32 project_id = 1;
+	uint32 administrator_id = 2;
+	repeated Image images = 3;
 }
 message CreateTaskReply {}
 
