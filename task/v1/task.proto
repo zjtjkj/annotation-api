@@ -54,7 +54,7 @@ message CreateTaskRequest {
 message CreateTaskReply {}
 
 message DeleteTaskRequest {
-	uint32 id = 1;
+	repeated uint32 id = 1;
 }
 message DeleteTaskReply {}
 
