@@ -81,7 +81,8 @@ message ListTaskRequest {
 	}
 	message Condition {
 		string keyword = 1;
-		repeated State states = 2;
+		uint32 pro_id = 2;
+		repeated State states = 3;
 	}
 	Paging paging = 1;
 	Condition condition = 2;
