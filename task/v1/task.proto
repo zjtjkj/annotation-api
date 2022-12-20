@@ -80,9 +80,8 @@ message ListTaskRequest {
 		uint32 size = 2;
 	}
 	message Condition {
-		string keyword = 1;
-		uint32 pro_id = 2;
-		repeated State states = 3;
+		uint32 pro_id = 1;
+		repeated State states = 2;
 	}
 	Paging paging = 1;
 	Condition condition = 2;
