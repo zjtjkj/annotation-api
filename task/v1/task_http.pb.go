@@ -23,12 +23,14 @@ const OperationTaskCreateTask = "/api.task.v1.Task/CreateTask"
 const OperationTaskDeleteTask = "/api.task.v1.Task/DeleteTask"
 const OperationTaskGetTask = "/api.task.v1.Task/GetTask"
 const OperationTaskListTask = "/api.task.v1.Task/ListTask"
+const OperationTaskListTaskState = "/api.task.v1.Task/ListTaskState"
 
 type TaskHTTPServer interface {
 	CreateTask(context.Context, *CreateTaskRequest) (*CreateTaskReply, error)
 	DeleteTask(context.Context, *DeleteTaskRequest) (*DeleteTaskReply, error)
 	GetTask(context.Context, *GetTaskRequest) (*GetTaskReply, error)
 	ListTask(context.Context, *ListTaskRequest) (*ListTaskReply, error)
+	ListTaskState(context.Context, *ListTaskStateRequest) (*ListTaskStateReply, error)
 }
 
 func RegisterTaskHTTPServer(s *http.Server, srv TaskHTTPServer) {
@@ -37,6 +39,7 @@ func RegisterTaskHTTPServer(s *http.Server, srv TaskHTTPServer) {
 	r.POST("/api/v1/task/delete", _Task_DeleteTask0_HTTP_Handler(srv))
 	r.POST("/api/v1/task/get", _Task_GetTask0_HTTP_Handler(srv))
 	r.POST("/api/v1/task/list", _Task_ListTask0_HTTP_Handler(srv))
+	r.POST("/api/v1/task/list", _Task_ListTaskState0_HTTP_Handler(srv))
 }
 
 func _Task_CreateTask0_HTTP_Handler(srv TaskHTTPServer) func(ctx http.Context) error {
@@ -115,11 +118,31 @@ func _Task_ListTask0_HTTP_Handler(srv TaskHTTPServer) func(ctx http.Context) err
 	}
 }
 
+func _Task_ListTaskState0_HTTP_Handler(srv TaskHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ListTaskStateRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationTaskListTaskState)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListTaskState(ctx, req.(*ListTaskStateRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListTaskStateReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 type TaskHTTPClient interface {
 	CreateTask(ctx context.Context, req *CreateTaskRequest, opts ...http.CallOption) (rsp *CreateTaskReply, err error)
 	DeleteTask(ctx context.Context, req *DeleteTaskRequest, opts ...http.CallOption) (rsp *DeleteTaskReply, err error)
 	GetTask(ctx context.Context, req *GetTaskRequest, opts ...http.CallOption) (rsp *GetTaskReply, err error)
 	ListTask(ctx context.Context, req *ListTaskRequest, opts ...http.CallOption) (rsp *ListTaskReply, err error)
+	ListTaskState(ctx context.Context, req *ListTaskStateRequest, opts ...http.CallOption) (rsp *ListTaskStateReply, err error)
 }
 
 type TaskHTTPClientImpl struct {
@@ -174,6 +197,19 @@ func (c *TaskHTTPClientImpl) ListTask(ctx context.Context, in *ListTaskRequest, 
 	pattern := "/api/v1/task/list"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationTaskListTask))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *TaskHTTPClientImpl) ListTaskState(ctx context.Context, in *ListTaskStateRequest, opts ...http.CallOption) (*ListTaskStateReply, error) {
+	var out ListTaskStateReply
+	pattern := "/api/v1/task/list"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationTaskListTaskState))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

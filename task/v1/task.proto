@@ -32,6 +32,12 @@ service Task {
 			body: "*"
 		};
 	}
+	rpc ListTaskState (ListTaskStateRequest) returns (ListTaskStateReply) {
+		option (google.api.http) = {
+			post: "/api/v1/task/list",
+			body: "*"
+		};
+	}
 }
 
 enum State {
@@ -104,4 +110,13 @@ message ListTaskReply {
 	}
 	Paging paging = 1;
 	repeated Task tasks = 2;
+}
+
+message ListTaskStateRequest {}
+message ListTaskStateReply {
+	message State {
+		uint32 id = 1;
+		string name = 2;
+	}
+	repeated State states = 1;
 }

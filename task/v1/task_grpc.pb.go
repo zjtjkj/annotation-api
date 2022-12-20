@@ -26,6 +26,7 @@ type TaskClient interface {
 	DeleteTask(ctx context.Context, in *DeleteTaskRequest, opts ...grpc.CallOption) (*DeleteTaskReply, error)
 	GetTask(ctx context.Context, in *GetTaskRequest, opts ...grpc.CallOption) (*GetTaskReply, error)
 	ListTask(ctx context.Context, in *ListTaskRequest, opts ...grpc.CallOption) (*ListTaskReply, error)
+	ListTaskState(ctx context.Context, in *ListTaskStateRequest, opts ...grpc.CallOption) (*ListTaskStateReply, error)
 }
 
 type taskClient struct {
@@ -72,6 +73,15 @@ func (c *taskClient) ListTask(ctx context.Context, in *ListTaskRequest, opts ...
 	return out, nil
 }
 
+func (c *taskClient) ListTaskState(ctx context.Context, in *ListTaskStateRequest, opts ...grpc.CallOption) (*ListTaskStateReply, error) {
+	out := new(ListTaskStateReply)
+	err := c.cc.Invoke(ctx, "/api.task.v1.Task/ListTaskState", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TaskServer is the server API for Task service.
 // All implementations must embed UnimplementedTaskServer
 // for forward compatibility
@@ -80,6 +90,7 @@ type TaskServer interface {
 	DeleteTask(context.Context, *DeleteTaskRequest) (*DeleteTaskReply, error)
 	GetTask(context.Context, *GetTaskRequest) (*GetTaskReply, error)
 	ListTask(context.Context, *ListTaskRequest) (*ListTaskReply, error)
+	ListTaskState(context.Context, *ListTaskStateRequest) (*ListTaskStateReply, error)
 	mustEmbedUnimplementedTaskServer()
 }
 
@@ -98,6 +109,9 @@ func (UnimplementedTaskServer) GetTask(context.Context, *GetTaskRequest) (*GetTa
 }
 func (UnimplementedTaskServer) ListTask(context.Context, *ListTaskRequest) (*ListTaskReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListTask not implemented")
+}
+func (UnimplementedTaskServer) ListTaskState(context.Context, *ListTaskStateRequest) (*ListTaskStateReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListTaskState not implemented")
 }
 func (UnimplementedTaskServer) mustEmbedUnimplementedTaskServer() {}
 
@@ -184,6 +198,24 @@ func _Task_ListTask_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Task_ListTaskState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListTaskStateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TaskServer).ListTaskState(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.task.v1.Task/ListTaskState",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TaskServer).ListTaskState(ctx, req.(*ListTaskStateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Task_ServiceDesc is the grpc.ServiceDesc for Task service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -206,6 +238,10 @@ var Task_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListTask",
 			Handler:    _Task_ListTask_Handler,
+		},
+		{
+			MethodName: "ListTaskState",
+			Handler:    _Task_ListTaskState_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
